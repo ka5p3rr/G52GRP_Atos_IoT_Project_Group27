@@ -9,5 +9,11 @@ Software Engineering Group Project (G52GRP) at the University of Nottingham
 - Feras Shamashan ezyfs1@nottingham.ac.uk
 - Toby Sheldon psytjsh@nottingham.ac.uk
 
+## Links
+- [Trello](https://trello.com/atosproject)
+- [Google Drive](https://drive.google.com/drive/folders/1JSKF_r83GmpzqIC-DtAelJyRJ_dA3OGq?usp=sharing)
+
+## Requirements
+
 ## Changelog
 - First commit on 30th of October 2018
