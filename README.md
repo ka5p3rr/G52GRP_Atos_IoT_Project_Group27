@@ -1,5 +1,5 @@
-# Atos IoT project
-Software Engineering Group Project (G52GRP) at the University of Nottingham
+# Atos IoT Water Management Project <img src="https://atos.net/wp-content/uploads/2016/09/atos-logo-high-res-rgb.jpg" height=150 align="right">
+Software Engineering Group Project (G52GRP) at the University of Nottingham.
 
 ## Team Members
 - Alexandros Araouzos psyaa12@nottingham.ac.uk
