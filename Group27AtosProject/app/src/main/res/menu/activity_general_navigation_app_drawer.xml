@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/labelA_menu_item"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="@string/labelA" />
+        <item
+            android:id="@+id/labelB_menu_item"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="@string/labelB" />
+        <item
+            android:id="@+id/labelC_menu_item"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="@string/labelC" />
+        <item
+            android:id="@+id/labelD_menu_item"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="@string/labelD" />
+    </group>
+
+</menu>

@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AppActivity"
-            android:label="@string/title_activity_app"
+            android:name=".GeneralNavigationActivity"
+            android:label="@string/title_general_navigation_activity_app"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
