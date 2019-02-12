@@ -15,19 +15,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void launchActivity(View view) {
+    public void launchNavigationActivity(View view) {
         EditText editText = findViewById(R.id.email_text);
         String user = editText.getText().toString();
         if(user.equals("admin"))
-            this.launchNavigationActivity(user);
+            this.launch(user);
         if(user.equals("supervisor"))
-            this.launchNavigationActivity(user);
+            this.launch(user);
         if(user.equals("worker"))
-            this.launchNavigationActivity(user);
+            this.launch(user);
     }
 
-    private void launchNavigationActivity(String user) {
-        Intent intent = new Intent(this, GeneralNavigationActivity.class);
+    private void launch(String user) {
+        Intent intent = new Intent(this, NavigationActivity.class);
         intent.putExtra(EXTRA_MESSAGE, user);
         startActivity(intent);
     }

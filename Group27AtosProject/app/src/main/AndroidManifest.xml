@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".GeneralNavigationActivity"
+            android:name=".NavigationActivity"
             android:label="@string/title_general_navigation_activity_app"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

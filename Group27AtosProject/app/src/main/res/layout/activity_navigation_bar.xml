@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GeneralNavigationActivity">
+    tools:context=".NavigationActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,6 +20,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/activity_general_navigation_content" />
+    <include layout="@layout/activity_navigation_content" />
 
 </android.support.design.widget.CoordinatorLayout>
