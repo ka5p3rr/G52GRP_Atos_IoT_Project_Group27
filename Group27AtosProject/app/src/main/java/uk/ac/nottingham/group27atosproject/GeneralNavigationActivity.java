@@ -26,15 +26,6 @@ public class GeneralNavigationActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -43,29 +34,18 @@ public class GeneralNavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        // call a function to change the username and user email in the header of the navigation bar
+        changeText(navigationView);
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.app, menu);
-
+    private void changeText(NavigationView navigationView) {
+        View headerView = navigationView.getHeaderView(0);
         // creating a new intent to set the user and email address in the navigation bar
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         // get the text view fields to change the text
-        TextView userName_textview = findViewById(R.id.userName_textview);
-        TextView userMail_textview = findViewById(R.id.userMail_textview);
+        TextView userName_textview = headerView.findViewById(R.id.userName_textview);
+        TextView userMail_textview = headerView.findViewById(R.id.userMail_textview);
 
         // set the text itself
         if(message.equals("admin")) {
@@ -80,23 +60,17 @@ public class GeneralNavigationActivity extends AppCompatActivity
             userName_textview.setText(R.string.worker_username);
             userMail_textview.setText(R.string.worker_usermail);
         }
-
-        return true;
     }
 
+    // when back button is pressed it either closes the navigation bar or goes back
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -104,7 +78,7 @@ public class GeneralNavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-//
+
         if (id == R.id.labelA_menu_item) {
 
         } else if (id == R.id.labelB_menu_item) {
