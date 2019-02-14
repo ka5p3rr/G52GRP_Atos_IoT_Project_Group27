@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Group27AtosProject</string>
-    <string name="email_text">Email</string>
+    <string name="app_name">Group 27</string>
+    <string name="user_text">User</string>
     <string name="password_text">Password</string>
     <string name="login_button">Log in</string>
     <string name="title_general_navigation_activity_app">Overview</string>
@@ -10,7 +10,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="labelA">labelA</string>
+    <string name="overview_menuitem">Overview</string>
     <string name="labelB">labelB</string>
     <string name="labelC">labelC</string>
     <string name="labelD">labelD</string>
@@ -21,7 +21,7 @@
     <string name="worker_username">Worker</string>
     <string name="worker_usermail">worker@group27.com</string>
     <string name="demo_text">DEMO APP</string>
-    <string name="instructions_text">Please enter "worker", "supervisor" or "admin" in the email field to access the app</string>
+    <string name="instructions_text">Please enter worker, supervisor or admin in the User field and press LOG IN to access the app. No password is required.</string>
     <string name="lore_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque turpis nec justo ullamcorper posuere. Fusce sit amet est mi. Etiam posuere fringilla neque, at suscipit urna varius eget. Ut consequat lorem in metus tempor, id molestie enim tincidunt. Nullam scelerisque lobortis mi, eget laoreet nunc bibendum at. Vestibulum turpis nunc, venenatis nec massa vitae, tempus hendrerit velit. Vivamus tincidunt vel leo sed rutrum. Curabitur pulvinar molestie purus pharetra dictum. Mauris vehicula, nisi vitae commodo varius, nisl nibh fringilla ex, id vulputate enim augue efficitur turpis. Duis tempor ornare rutrum. Nullam vel consectetur nunc, eget vehicula ante. Phasellus faucibus magna dolor, sed pulvinar augue placerat nec. Nam nec lectus id odio scelerisque porttitor.
 
 Duis nec ligula elementum, rutrum ligula sit amet, volutpat velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec iaculis consectetur est, id eleifend augue scelerisque in. Suspendisse potenti. Nam imperdiet sit amet dolor nec tincidunt. Morbi sed mattis libero, at rutrum dui. Nullam mattis semper tincidunt. Duis laoreet cursus odio, nec tristique nulla aliquam non. Donec dictum facilisis turpis, ut porta enim convallis quis. Donec id tincidunt ante, eu vulputate urna. Cras libero erat, viverra eu mollis eget, posuere et lectus. Nullam laoreet odio at libero feugiat maximus. Ut euismod urna ut erat commodo, sit amet commodo leo eleifend. Nulla at ante ac urna volutpat finibus.

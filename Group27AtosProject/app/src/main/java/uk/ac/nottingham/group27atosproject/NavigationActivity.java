@@ -33,27 +33,30 @@ public class NavigationActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         // call a function to change the username and user email in the header of the navigation bar
         changeText(navigationView);
+
+        // Check the labelA as the checked item
+        navigationView.setCheckedItem(R.id.overview_menu_item);
     }
 
     private void changeText(NavigationView navigationView) {
         View headerView = navigationView.getHeaderView(0);
         // creating a new intent to set the user and email address in the navigation bar
         Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String user = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         // get the text view fields to change the text
         TextView userName_textview = headerView.findViewById(R.id.userName_textview);
         TextView userMail_textview = headerView.findViewById(R.id.userMail_textview);
 
         // set the text itself
-        if(message.equals("admin")) {
+        if(user.equals("admin")) {
             userName_textview.setText(R.string.admin_username);
             userMail_textview.setText(R.string.admin_usermail);
         }
-        if(message.equals("supervisor")) {
+        if(user.equals("supervisor")) {
             userName_textview.setText(R.string.supervisor_username);
             userMail_textview.setText(R.string.supervisor_usermail);
         }
-        if(message.equals("worker")) {
+        if(user.equals("worker")) {
             userName_textview.setText(R.string.worker_username);
             userMail_textview.setText(R.string.worker_usermail);
         }
@@ -75,7 +78,7 @@ public class NavigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.labelA_menu_item) {
+        if (id == R.id.overview_menu_item) {
 
         } else if (id == R.id.labelB_menu_item) {
 
