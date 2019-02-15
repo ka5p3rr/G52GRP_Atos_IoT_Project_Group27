@@ -14,6 +14,13 @@ Software Engineering Group Project (G52GRP) at the University of Nottingham.
 - [Google Drive](https://drive.google.com/drive/folders/1JSKF_r83GmpzqIC-DtAelJyRJ_dA3OGq?usp=sharing)
 
 ## Requirements
+### Android App
+- Android Studio 3.3.1
+  - newer versions should be supported as well
+- Android SDK
+  - compileSdkVersion 28
+  - minSdkVersion 15
+  - targetSdkVersion 28
 
 ## Changelog
 - First commit on 30th of October 2018
