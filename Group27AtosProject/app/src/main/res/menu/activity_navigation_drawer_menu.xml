@@ -5,21 +5,23 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/overview_menu_item"
+            android:id="@+id/overview_menuitem"
             android:icon="@android:drawable/ic_dialog_info"
             android:title="@string/overview_menuitem" />
         <item
-            android:id="@+id/labelB_menu_item"
+            android:id="@+id/stats_menuitem"
             android:icon="@android:drawable/ic_dialog_info"
-            android:title="@string/labelB" />
+            android:title="@string/stats_menuitem" />
         <item
-            android:id="@+id/labelC_menu_item"
+            android:id="@+id/graph_menuitem"
             android:icon="@android:drawable/ic_dialog_info"
-            android:title="@string/labelC" />
+            android:title="@string/graph_menuitem" />
+    </group>
+    <group >
         <item
-            android:id="@+id/labelD_menu_item"
-            android:icon="@android:drawable/ic_dialog_info"
-            android:title="@string/labelD" />
+            android:id="@+id/signout_menuitem"
+            android:icon="@android:drawable/ic_menu_revert"
+            android:title="@string/signout_menuitem" />
     </group>
 
 </menu>

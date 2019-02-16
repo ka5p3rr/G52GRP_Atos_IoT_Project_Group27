@@ -2,6 +2,8 @@ package uk.ac.nottingham.group27atosproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,8 +36,53 @@ public class NavigationActivity extends AppCompatActivity
         // call a function to change the username and user email in the header of the navigation bar
         changeText(navigationView);
 
-        // Check the labelA as the checked item
-        navigationView.setCheckedItem(R.id.overview_menu_item);
+        // Check the labelA as the checked item by default as the first screen
+        navigationView.setCheckedItem(R.id.overview_menuitem);
+        changeFragment(new OverviewFragment(), R.string.overview_menuitem);
+    }
+
+    // when back button is pressed it either closes the navigation bar or goes back
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            this.moveTaskToBack(true);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        switch(id) {
+            case R.id.overview_menuitem:
+                changeFragment(new OverviewFragment(), R.string.overview_menuitem);
+                break;
+            case R.id.stats_menuitem:
+                changeFragment(new StatisticsFragment(), R.string.stats_menuitem);
+                break;
+            case R.id.graph_menuitem:
+                changeFragment(new GraphsFragment(), R.string.graph_menuitem);
+                break;
+            case R.id.signout_menuitem:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void changeFragment(Fragment fragment, int title) {
+        setTitle(title);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_framelayout, fragment).commit();
     }
 
     private void changeText(NavigationView navigationView) {
@@ -48,48 +95,19 @@ public class NavigationActivity extends AppCompatActivity
         TextView userMail_textview = headerView.findViewById(R.id.userMail_textview);
 
         // set the text itself
-        if(user.equals("admin")) {
-            userName_textview.setText(R.string.admin_username);
-            userMail_textview.setText(R.string.admin_usermail);
+        switch (user) {
+            case "admin":
+                userName_textview.setText(R.string.admin_username);
+                userMail_textview.setText(R.string.admin_usermail);
+                break;
+            case "supervisor":
+                userName_textview.setText(R.string.supervisor_username);
+                userMail_textview.setText(R.string.supervisor_usermail);
+                break;
+            case "worker":
+                userName_textview.setText(R.string.worker_username);
+                userMail_textview.setText(R.string.worker_usermail);
+                break;
         }
-        if(user.equals("supervisor")) {
-            userName_textview.setText(R.string.supervisor_username);
-            userMail_textview.setText(R.string.supervisor_usermail);
-        }
-        if(user.equals("worker")) {
-            userName_textview.setText(R.string.worker_username);
-            userMail_textview.setText(R.string.worker_usermail);
-        }
-    }
-
-    // when back button is pressed it either closes the navigation bar or goes back
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.overview_menu_item) {
-
-        } else if (id == R.id.labelB_menu_item) {
-
-        } else if (id == R.id.labelC_menu_item) {
-
-        } else if (id == R.id.labelD_menu_item) {
-
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
