@@ -1,9 +1,8 @@
 package uk.ac.nottingham.group27atosproject;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -18,6 +17,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     *
+     * @param view
+     */
     public void launchNavigationActivity(View view) {
         EditText editText = findViewById(R.id.user_text);
         String user = editText.getText().toString();
