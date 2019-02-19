@@ -16,11 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
-    /**
-     *
-     * @param view
-     */
+    
     public void launchNavigationActivity(View view) {
         EditText editText = findViewById(R.id.user_text);
         String user = editText.getText().toString();

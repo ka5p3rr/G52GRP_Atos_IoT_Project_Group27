@@ -24,4 +24,5 @@
     <string name="overview_fragment_textview">This page displays the OVERVIEW</string>
     <string name="statistics_fragment_textview">This page displays the STATISTICS</string>
     <string name="graphs_fragment_textview">This page displays the GRAPHS</string>
+    <string name="uon_logo_description">University of Nottingham Logo</string>
 </resources>
