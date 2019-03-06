@@ -1,4 +1,4 @@
-# Atos IoT Water Management Project <img src="https://atos.net/wp-content/uploads/2016/09/atos-logo-high-res-rgb.jpg" height=150 align="right">
+# Atos IoT Water Management Project
 Software Engineering Group Project (G52GRP) at the University of Nottingham.
 
 ## Team Members
