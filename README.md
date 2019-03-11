@@ -14,6 +14,9 @@ Software Engineering Group Project (G52GRP) at the University of Nottingham.
 - [Google Drive](https://drive.google.com/drive/folders/1JSKF_r83GmpzqIC-DtAelJyRJ_dA3OGq?usp=sharing)
 
 ## Requirements
+### Java Desktop Application
+- We are using the [Java SE Development Kit 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) to develop the Desktop Application
+  - it includes the JavaFX library by default, which we use to create the GUI
 
 ## Changelog
 - First commit on 30th of October 2018
