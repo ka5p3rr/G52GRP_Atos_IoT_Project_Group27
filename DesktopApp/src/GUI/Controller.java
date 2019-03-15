@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Controller class for all GUI FXML files.
@@ -27,6 +30,23 @@ public class Controller {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.setResizable(false);
+        netStat(root);
+    }
+
+    /**
+     * Helper function that sets the text on Welcome screen with IP Address and Host Name.
+     * @param root {@link Parent} root to loop up the text on Welcome Screen
+     */
+    private void netStat(Parent root) {
+        Text txt = (Text) root.lookup("#ConnectionInfoText");
+        try {
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            String ipAddress = inetAddress.getHostAddress();
+            String hostName = inetAddress.getHostName();
+            txt.setText("IP Address: " + ipAddress + " Host Name: " + hostName);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
