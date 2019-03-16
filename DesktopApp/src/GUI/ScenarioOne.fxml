@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
    <children>
-      <Slider blockIncrement="1.0" layoutX="290.0" layoutY="654.0" majorTickUnit="1.0" max="24.0" minorTickCount="0" prefWidth="700.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <GridPane alignment="CENTER" layoutY="670.0" prefWidth="1280.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" prefWidth="1100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Slider blockIncrement="1.0" majorTickUnit="1.0" max="24.0" minorTickCount="0" prefHeight="45.0" prefWidth="750.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding></Slider>
+            <Button fx:id="runButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#runButtonController" prefWidth="100.0" style="-fx-background-color: GREEN;" text="RUN" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+         </children>
+      </GridPane>
+      <Text layoutX="155.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GRAPHS">
+         <font>
+            <Font size="96.0" />
+         </font>
+      </Text>
+      <Text layoutX="883.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TANK">
+         <font>
+            <Font size="96.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

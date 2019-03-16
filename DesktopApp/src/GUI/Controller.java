@@ -1,9 +1,11 @@
 package GUI;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -17,6 +19,11 @@ import java.net.UnknownHostException;
  * Controller class for all GUI FXML files.
  */
 public class Controller {
+    /**
+     *
+     */
+    public Button runButton;
+
     /**
      * Loads the Welcome Screen FXML. Sets the title of the application, main icon and the scene.
      * @throws IOException when the FXML file can't be loaded
@@ -59,5 +66,22 @@ public class Controller {
         Stage primaryStage = Main.getStage();
         primaryStage.setScene(new Scene(root));
         primaryStage.centerOnScreen();
+    }
+
+    /**
+     * Run button controller that changes the colour and text of the {@link Button} on click.
+     * @param event
+     */
+    @FXML
+    public void runButtonController(ActionEvent event) {
+        String string = event.getSource().toString();
+        if(string.contains("RUN")) {
+            runButton.setStyle("-fx-background-color: Orange;");
+            runButton.setText("RESUME");
+        }
+        else {
+            runButton.setStyle("-fx-background-color: Green;");
+            runButton.setText("RUN");
+        }
     }
 }
