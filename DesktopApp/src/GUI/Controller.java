@@ -61,11 +61,10 @@ public class Controller {
      * @throws IOException when the FXML file can't be loaded
      */
     @FXML
-    public void launchScenarioOne() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/ScenarioOne.fxml"));
+    public void launchScenarios() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/GUI/Scenarios.fxml"));
         Stage primaryStage = Main.getStage();
         primaryStage.setScene(new Scene(root));
-        primaryStage.centerOnScreen();
     }
 
     /**
