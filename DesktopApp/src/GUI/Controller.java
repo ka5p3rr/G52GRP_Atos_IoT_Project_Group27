@@ -58,5 +58,6 @@ public class Controller {
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/ScenarioOne.fxml"));
         Stage primaryStage = Main.getStage();
         primaryStage.setScene(new Scene(root));
+        primaryStage.centerOnScreen();
     }
 }
