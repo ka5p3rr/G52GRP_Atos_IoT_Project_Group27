@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -45,20 +45,15 @@ public class MainController {
     public void createAlertDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle("");
-        alert.setHeaderText("Connected network interfaces");
+        alert.setTitle("Connection information");
+        alert.setHeaderText(null);
 
-        // create a text area to print the connection information
-        TextArea textArea = new TextArea(Server.getNetInfo());
-        textArea.setEditable(false);
-        textArea.setWrapText(true);
-
-        // Set expandable Exception into the dialog pane.
-        alert.getDialogPane().setContent(textArea);
+        // create a label with connection information and add it to the dialog pane
+        Label label = new Label(Server.getNetInfo());
+        alert.getDialogPane().setContent(label);
 
         alert.showAndWait();
     }
-
 
     /**
      * Method called by clicking the Scenarios button, which launches the according screen.
