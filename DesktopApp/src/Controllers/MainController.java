@@ -5,11 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import main.Main;
 import server.Connection;
+import server.Server;
 
 import java.io.IOException;
 
@@ -33,6 +37,28 @@ public class MainController {
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
     }
+
+    /**
+     * Creates a dialog pop up with connection information.
+     */
+    @FXML
+    public void createAlertDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("");
+        alert.setHeaderText("Connected network interfaces");
+
+        // create a text area to print the connection information
+        TextArea textArea = new TextArea(Server.getNetInfo());
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        // Set expandable Exception into the dialog pane.
+        alert.getDialogPane().setContent(textArea);
+
+        alert.showAndWait();
+    }
+
 
     /**
      * Method called by clicking the Scenarios button, which launches the according screen.

@@ -8,7 +8,7 @@ import java.util.Enumeration;
  * TCP/IP Server. Implemented as Singleton. Use {@link #getInstance()} to get an instance of this class.
  */
 public class Server extends Thread {
-	private final int serverPortNumber = 7896;
+	private final int SERVER_PORT_NUMBER = 7896;
 	private static Server server = null;
 
 	/**
@@ -21,12 +21,14 @@ public class Server extends Thread {
 		return server;
 	}
 
+	private Server() {}
+
 	/**
 	 * Retrieves the list of network interfaces. It prints out all connected interfaces with their respective IPV4 addresses.
 	 * @return string with all connected interfaces and their ip addresses
 	 */
-	private String getNetInfo() {
-		StringBuilder connectionInformation = new StringBuilder("Connection information:\n");
+	public static String getNetInfo() {
+		StringBuilder connectionInformation = new StringBuilder();
 		try {
 			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 			while(interfaces.hasMoreElements()) {
@@ -56,16 +58,19 @@ public class Server extends Thread {
 	/**
 	 * Main server method is a forever loop waiting for a connection on a client socket. Each connection is handled on a new thread.
 	 */
+	@Override
 	public void run() {
 		try {
-			ServerSocket listenSocket = new ServerSocket(serverPortNumber);
+			ServerSocket listenSocket = new ServerSocket(SERVER_PORT_NUMBER);
 			System.out.println("server is running");
+			System.out.println("\nConnected interfaces:");
 			System.out.println(getNetInfo());
 
 			while (true) {
 				Socket clientSocket = listenSocket.accept();
 				System.out.println("Connection from " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
-				new Connection(clientSocket);
+				// create the connection and start the thread
+				new Connection(clientSocket).start();
 			}
 		} catch(IOException e) {e.printStackTrace();}
 	}

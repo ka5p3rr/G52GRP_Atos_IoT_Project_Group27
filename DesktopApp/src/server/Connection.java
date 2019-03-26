@@ -27,7 +27,6 @@ public class Connection extends Thread {
             in = new DataInputStream( clientSocket.getInputStream());
             out = new DataOutputStream( clientSocket.getOutputStream());
         } catch(IOException e) {e.printStackTrace();}
-        this.start();
     }
 
     /**
