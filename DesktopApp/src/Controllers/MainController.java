@@ -35,6 +35,7 @@ public class MainController {
         primaryStage.getIcons().add(new Image("/resources/icon.png"));
         primaryStage.show();
         primaryStage.setResizable(false);
+//        primaryStage.setFullScreen(true);
         primaryStage.centerOnScreen();
     }
 

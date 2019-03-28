@@ -13,7 +13,7 @@ public class TestTCPClient {
      */
 	public static void main (String[] args) {
         // IP address and port number of the server
-        String serverIP = "10.154.179.169";
+        String serverIP = "100.74.97.3";
         int serverPort = 7896;
 
         // loop forever
