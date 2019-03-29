@@ -2,6 +2,8 @@ package uk.ac.nottingham.group27atosproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -17,37 +19,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    /**
-     * Switches between different users depending on the input from the log in screen. If no user or wrong string entered it calls a {@link #makeToast()} function to notify the app user.
-     * @param view
-     */
-    public void launchNavigationActivity(View view) {
-        EditText editText = findViewById(R.id.user_text);
-        String user = editText.getText().toString();
-        switch (user) {
-            case "admin":
-                this.launch(user);
-                break;
-            case "supervisor":
-                this.launch(user);
-                break;
-            case "worker":
-                this.launch(user);
-                break;
-            default:
-                makeToast();
-        }
+    // when back button is pressed do nothing
+    @Override
+    public void onBackPressed() {}
+
+
+    public void launchAsWorker(View view) {
+        this.launch("worker");
     }
 
-    /**
-     * Creates a toast (little pop up) in the middle of the screen when no user input was given in the log in screen.
-     */
-    private void makeToast() {
-        CharSequence text = "Please follow the on screen instructions!";
-        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0,0);
-        toast.show();
+    public void launchAsSupervisor(View view) {
+        this.launch("supervisor");
     }
+
 
     /**
      * Creates a new {@link Intent} to launch the {@link NavigationActivity} for a specific user.

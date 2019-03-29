@@ -36,19 +36,17 @@ public class NavigationActivity extends AppCompatActivity
         // call a function to change the username and user email in the header of the navigation bar
         changeText(navigationView);
 
-        // Check the labelA as the checked item by default as the first screen
+        // Check the overview as the checked item by default as the first screen
         navigationView.setCheckedItem(R.id.overview_menuitem);
         changeFragment(new OverviewFragment(), R.string.overview_menuitem);
     }
 
-    // when back button is pressed it either closes the navigation bar or goes back
+    // when back button is pressed it either closes the navigation bar
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            this.moveTaskToBack(true);
         }
     }
 
@@ -60,12 +58,6 @@ public class NavigationActivity extends AppCompatActivity
         switch(id) {
             case R.id.overview_menuitem:
                 changeFragment(new OverviewFragment(), R.string.overview_menuitem);
-                break;
-            case R.id.stats_menuitem:
-                changeFragment(new StatisticsFragment(), R.string.stats_menuitem);
-                break;
-            case R.id.graph_menuitem:
-                changeFragment(new GraphsFragment(), R.string.graph_menuitem);
                 break;
             case R.id.signout_menuitem:
                 Intent intent = new Intent(this, MainActivity.class);

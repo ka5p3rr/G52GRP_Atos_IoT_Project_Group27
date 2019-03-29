@@ -20,7 +20,7 @@
     <string name="worker_username">Worker</string>
     <string name="worker_usermail">worker@group27.com</string>
     <string name="demo_text">DEMO APP</string>
-    <string name="instructions_text">Please enter worker, supervisor or admin in the User field and press LOG IN to access the app. No password is required.</string>
+    <string name="instructions_text">Please press one of the buttons below to access the app.</string>
     <string name="overview_fragment_textview">This page displays the OVERVIEW</string>
     <string name="statistics_fragment_textview">This page displays the STATISTICS</string>
     <string name="graphs_fragment_textview">This page displays the GRAPHS</string>

@@ -8,14 +8,6 @@
             android:id="@+id/overview_menuitem"
             android:icon="@drawable/ic_overview"
             android:title="@string/overview_menuitem" />
-        <item
-            android:id="@+id/stats_menuitem"
-            android:icon="@drawable/ic_stats"
-            android:title="@string/stats_menuitem" />
-        <item
-            android:id="@+id/graph_menuitem"
-            android:icon="@drawable/ic_graph"
-            android:title="@string/graph_menuitem" />
     </group>
     <group >
         <item

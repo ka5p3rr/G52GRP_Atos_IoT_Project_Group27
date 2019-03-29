@@ -68,6 +68,17 @@ public class MainController {
     }
 
     /**
+     * Reloads the Welcome Screen FXML scene.
+     * @throws IOException when the FXML file can't be loaded
+     */
+    @FXML
+    public void returnToWelcomeScreen() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/WelcomeScreen.fxml"));
+        Stage primaryStage = Main.getStage();
+        primaryStage.setScene(new Scene(root));
+    }
+
+    /**
      * Called from the UI. It opens the Notification Demo Screen.
      * @throws IOException when the FXML file can't be loaded
      */
@@ -80,17 +91,6 @@ public class MainController {
         // get the current percentage and show it on screen
         Text text = (Text) root.lookup("#currentlySetText");
         text.setText("Currently set to: " + Connection.getData());
-    }
-
-    /**
-     * Reloads the Welcome Screen FXML scene.
-     * @throws IOException when the FXML file can't be loaded
-     */
-    @FXML
-    public void returnToWelcomeScreen() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FXML/WelcomeScreen.fxml"));
-        Stage primaryStage = Main.getStage();
-        primaryStage.setScene(new Scene(root));
     }
 
     /**
