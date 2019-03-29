@@ -35,7 +35,7 @@ public class Connection extends Thread {
     public void run(){
         try {
             // always needs to read the input stream
-            in.readUTF();
+            System.out.println("Received: " + in.readUTF());
             // here do processing for what to sent to clients
             System.out.println("Responded: " + data);
             out.writeUTF(data);
