@@ -26,22 +26,22 @@ import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    MyThread thread = null;
+    /** Thread running the TCP IP client */
+    ClientThread clientThread = null;
+    /** Changes depending on what user (supervisor or worker) was selected in main activity */
     String runningAsUser;
+    /** {@link TextView} being changed with the fetched data from server */
     TextView textView;
+    /** Data being send to the server */
     String sendOut = null;
-    /**
-     * Server IP address
-     */
+    /** Server IP address (IPv4) */
     private final String IP_ADDRESS = "100.74.97.17";
-    /**
-     * Server port number
-     */
+    /** Server port number */
     private final int PORT_NUMBER = 7896;
 
 
     /**
-     * Main function that launches the activity
+     * Main function that launches the activity.
      * @param savedInstanceState
      */
     @Override
@@ -49,8 +49,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+        // text view to change with fetched data
         textView = findViewById(R.id.textView);
 
+        // what user was selected in the Main Activity
         Intent intent = getIntent();
         runningAsUser = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         this.sendOut = runningAsUser;
@@ -69,14 +71,17 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         // call a function to change the username and user email in the header of the navigation bar
         changeHeaderText(navigationView);
 
-        // Check the overview as the checked item by default as the first screen
+        // Check the overview as the checked item by default (first screen in Navigation Activity)
         navigationView.setCheckedItem(R.id.overview_menuitem);
         setTitle(R.string.overview_menuitem);
 
-        start();
+        // starts the client
+        startClient();
     }
 
-    // when back button is pressed it either closes the navigation bar
+    /**
+     * Overrides the back button functionality. Back button only closes the {@link DrawerLayout} when open. Otherwise button press is ignored.
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -85,6 +90,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         }
     }
 
+    /**
+     * When item selected execute this function. Switch case changed behaviour per {@link MenuItem}.
+     * @param item {@link MenuItem} from the drawer menu
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -92,18 +102,22 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         switch(id) {
             case R.id.signout_menuitem:
-                thread.stopRunning();
+                clientThread.stopRunning();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
         }
 
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
+    /**
+     * Changes the header text in {@link NavigationView} with email and name per user.
+     * @param navigationView navigation view with the header
+     */
     private void changeHeaderText(NavigationView navigationView) {
         View headerView = navigationView.getHeaderView(0);
         // get the text view fields to change the text
@@ -128,10 +142,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
 
-    /* CLIENT TCP IP */
+    /* TCP IP CLIENT CODE BELOW */
 
     /**
-     * {@link Handler} which changes the UI when the client thread calls it
+     * {@link Handler} changes the UI when the client thread calls it.
      */
     private Handler UIHandler = new Handler(new Handler.Callback() {
         @Override
@@ -144,9 +158,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     });
 
     /**
-     * Start running the client
+     * Start running the client.
      */
-    public void start() {
+    public void startClient() {
         // validate the input IP Address
         if(!isValidIP(IP_ADDRESS)) {
             makeToast("Please enter a valid IP address!");
@@ -154,12 +168,19 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         }
 
         // run it as a new thread
-        thread = new MyThread();
-        thread.start();
+        clientThread = new ClientThread();
+        clientThread.start();
     }
 
-    class MyThread extends Thread {
+    /**
+     * Inner class that extends {@link Thread} and runs the TCP IP client. On change updates the UI using {@link Handler}.
+     */
+    class ClientThread extends Thread {
         private Boolean keepRunning = true;
+
+        /**
+         * Connects to server every second and fetches the data. The data is used to update the UI.
+         */
         public void run() {
             while (keepRunning) {
                 // connects to server and returns the data received
@@ -177,56 +198,58 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             }
         }
 
+        /**
+         * Does the actual TCP IP Client Server connection
+         * @return fetched string from server
+         */
+        private String connect() {
+            Socket clientSocket = null;
+            String data = null;
+
+            try {
+                clientSocket = new Socket(IP_ADDRESS, PORT_NUMBER);
+
+                DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
+                DataInputStream in = new DataInputStream(clientSocket.getInputStream());
+
+                // send out to server
+                out.writeUTF(sendOut);
+
+                // receive from server
+                data = in.readUTF();
+                Log.i("RECEIVED", data);
+
+            } catch (UnknownHostException e) {
+                Log.e("SOCKET", e.getMessage());
+            } catch (EOFException e) {
+                Log.e("EOF", e.getMessage());
+            } catch (IOException e) {
+                Log.e("IO", e.getMessage());
+            }
+
+            // This piece of code is executed no matter what. Even when an Exception is thrown.
+            finally {
+                if (clientSocket != null)
+                    try {
+                        clientSocket.close();
+                    } catch (IOException e) {
+                        Log.e("CLOSE", e.getMessage());
+                    }
+            }
+
+            return data;
+        }
+
+        /**
+         * Stop running the client.
+         */
         void stopRunning() {
             this.keepRunning = false;
         }
     }
 
-
     /**
-     * Does the actual TCP IP Client Server connection
-     * @return fetched string from server
-     */
-    private String connect() {
-        Socket clientSocket = null;
-        String data = null;
-
-        try {
-            clientSocket = new Socket(IP_ADDRESS, PORT_NUMBER);
-
-            DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
-            DataInputStream in = new DataInputStream(clientSocket.getInputStream());
-
-            // send out to server
-            out.writeUTF(sendOut);
-
-            // receive from server
-            data = in.readUTF();
-            Log.i("RECEIVED", data);
-
-        } catch (UnknownHostException e) {
-            Log.e("SOCKET", e.getMessage());
-        } catch (EOFException e) {
-            Log.e("EOF", e.getMessage());
-        } catch (IOException e) {
-            Log.e("IO", e.getMessage());
-        }
-
-        // This piece of code is executed no matter what. Even when an Exception is thrown.
-        finally {
-            if (clientSocket != null)
-                try {
-                    clientSocket.close();
-                } catch (IOException e) {
-                    Log.e("CLOSE", e.getMessage());
-                }
-        }
-
-        return data;
-    }
-
-    /**
-     * makes a toast pop up
+     * Makes a toast pop up.
      * @param text message text for the toast
      */
     private void makeToast(String text) {
@@ -237,7 +260,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     /**
      * Check if IP address is valid.
-     * @param ip ip address
+     * @param ip IP address
      * @return valid returns true, invalid returns false
      */
     public static boolean isValidIP(final String ip) {

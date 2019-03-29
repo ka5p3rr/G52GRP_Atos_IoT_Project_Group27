@@ -13,21 +13,35 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "ac.uk.nottingham.group27atosproject.MESSAGE";
 
+    /**
+     * On Activity creation - launch the activity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    // when back button is pressed do nothing
+    /**
+     * Ignore all back button presses.
+     */
     @Override
     public void onBackPressed() {}
 
 
+    /**
+     * Run {@link NavigationActivity} as "worker"
+     * @param view
+     */
     public void launchAsWorker(View view) {
         this.launch("worker");
     }
 
+    /**
+     * Run {@link NavigationActivity} as "supervisor"
+     * @param view
+     */
     public void launchAsSupervisor(View view) {
         this.launch("supervisor");
     }
@@ -35,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Creates a new {@link Intent} to launch the {@link NavigationActivity} for a specific user.
-     * @param user species the user to launch the activity with
+     * @param userSelected species the user to launch the activity with
      */
-    private void launch(String user) {
+    private void launch(String userSelected) {
         Intent intent = new Intent(this, NavigationActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, user);
+        intent.putExtra(EXTRA_MESSAGE, userSelected);
         startActivity(intent);
     }
 }
