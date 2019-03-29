@@ -17,6 +17,13 @@ Software Engineering Group Project (G52GRP) at the University of Nottingham.
 ### Java Desktop Application
 - We are using the [Java SE Development Kit 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) to develop the Desktop Application
   - it includes the JavaFX library by default, which we use to create the GUI
+### Android App
+- Android Studio 3.3.1
+  - newer versions should be supported as well
+- Android SDK
+  - compileSdkVersion 28
+  - minSdkVersion 15
+  - targetSdkVersion 28
 
 ## Changelog
 - First commit on 30th of October 2018
