@@ -63,6 +63,7 @@ public class Server extends Thread {
 		try {
 			ServerSocket listenSocket = new ServerSocket(SERVER_PORT_NUMBER);
 			System.out.println("server is running");
+			System.out.println(getNetInfo());
 
 			while (true) {
 				Socket clientSocket = listenSocket.accept();

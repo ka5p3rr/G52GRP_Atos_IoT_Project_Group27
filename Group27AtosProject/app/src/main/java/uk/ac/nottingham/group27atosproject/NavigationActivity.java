@@ -1,9 +1,15 @@
 package uk.ac.nottingham.group27atosproject;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -34,8 +40,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     TextView textView;
     /** Data being send to the server */
     String sendOut = null;
+    /** Previous data value received from server*/
+    int previousValue = 0;
     /** Server IP address (IPv4) */
-    private final String IP_ADDRESS = "10.154.177.61";
+    private final String IP_ADDRESS = "100.74.92.19";
     /** Server port number */
     private final int PORT_NUMBER = 7896;
 
@@ -217,6 +225,22 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
                 // receive from server
                 data = in.readUTF();
+
+                if(data.contains("demo")) {
+                    String[] values = data.split(",");
+
+                    if(values.length >= 2) {
+                        int i = Integer.parseInt(values[1]);
+                        if(i > previousValue)
+                            createNotification("Tank capacity " + i + "%");
+                        if(i < previousValue)
+                            cancelNotification();
+                        previousValue = i;
+                    }
+
+                    data = "Data received:\n" + data;
+                }
+
                 Log.i("RECEIVED", data);
 
             } catch (UnknownHostException e) {
@@ -267,5 +291,45 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         // Regex to check valid ip addresses
         final Pattern PATTERN = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
         return PATTERN.matcher(ip).matches();
+    }
+
+
+    private final int NOTIFICATION_ID = 001; // a unique int for each notification
+    private final String CHANNEL_ID = "100";
+
+    public void createNotification(String notificationTitle) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "General";
+            String description = "Main notification channel of this app";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_warning_notification_icon)
+                .setContentTitle(notificationTitle)
+                .setContentText("Touch to notify all workers")
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setColor(Color.RED);
+
+        notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    }
+
+    public void cancelNotification() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(NOTIFICATION_ID);
     }
 }

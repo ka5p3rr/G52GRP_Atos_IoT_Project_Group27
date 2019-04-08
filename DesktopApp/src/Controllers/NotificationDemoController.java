@@ -34,13 +34,13 @@ public class NotificationDemoController {
         String eventString = event.getSource().toString();
         String data = null;
         if(eventString.contains("50")) {
-            data = "demo 50%";
+            data = "demo,50";
         } else if(eventString.contains("70")) {
-            data = "demo 70%";
+            data = "demo,70";
         } else if (eventString.contains("90")){
-            data = "demo 90%";
+            data = "demo,90";
         } else if(eventString.contains("0")) {
-            data = "demo 0%";
+            data = "demo,0";
         }
         
         Connection.setData(data);
