@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
         android:text="@string/instructions_text"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:gravity="center"
@@ -73,14 +73,14 @@
 
         <Button
             android:id="@+id/supervisor_button"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:background="@color/colorPrimary"
             android:onClick="launchAsSupervisor"
             android:text="@string/supervisor_username"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -88,14 +88,14 @@
 
         <Button
             android:id="@+id/worker_button"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:background="@color/colorPrimary"
             android:onClick="launchAsWorker"
             android:text="@string/worker_username"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 

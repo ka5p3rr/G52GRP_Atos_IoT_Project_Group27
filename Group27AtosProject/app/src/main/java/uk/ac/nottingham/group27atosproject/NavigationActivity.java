@@ -35,7 +35,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     /** Data being send to the server */
     String sendOut = null;
     /** Server IP address (IPv4) */
-    private final String IP_ADDRESS = "100.74.97.17";
+    private final String IP_ADDRESS = "10.154.177.61";
     /** Server port number */
     private final int PORT_NUMBER = 7896;
 

@@ -1,6 +1,6 @@
 package main;
 
-import Controllers.MainController;
+import Controllers.WelcomeScreenController;
 import server.Server;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -26,7 +26,7 @@ public class Main extends Application {
     }
 
     /**
-     * Starts the the application and instantiates the {@link MainController} and calls a function to set the Welcome Screen {@link javafx.scene.Scene}.
+     * Starts the the application and instantiates the {@link WelcomeScreenController} and calls a function to set the Welcome Screen {@link javafx.scene.Scene}.
      * @param primaryStage main {@link Stage} of the application
      */
     @Override
@@ -34,7 +34,7 @@ public class Main extends Application {
         stage = primaryStage;
         // can throw an IOException when the FXML file fails to load
         try {
-            new MainController().launchWelcomeScreen();
+            new WelcomeScreenController().launchWelcomeScreen();
         } catch (IOException e) {
             e.printStackTrace();
         }

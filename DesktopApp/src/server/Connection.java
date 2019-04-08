@@ -15,7 +15,7 @@ public class Connection extends Thread {
     /**
      * This is send back to the client.
      */
-    private static String data = "0%";
+    private static String data = "";
 
     /**
      * Constructor
@@ -36,7 +36,7 @@ public class Connection extends Thread {
         try {
             // always needs to read the input stream
             System.out.println("Received: " + in.readUTF());
-            // here do processing for what to sent to clients
+            // here do processing for what to sent to clients¬
             System.out.println("Responded: " + data);
             out.writeUTF(data);
         } catch(IOException e) {e.printStackTrace();}
