@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Atos IoT Project</string>
+    <string name="app_name">Group 27 App</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -14,7 +14,6 @@
     <string name="worker_username">Worker</string>
     <string name="worker_usermail">worker@group27.com</string>
     <string name="demo_text">DEMO APP</string>
-    <string name="instructions_text"></string>
     <string name="overview_fragment_textview">This page displays the OVERVIEW</string>
     <string name="uon_logo_description">University of Nottingham Logo</string>
 </resources>

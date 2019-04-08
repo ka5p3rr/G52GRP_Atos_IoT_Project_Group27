@@ -5,21 +5,21 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +43,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     /** Previous data value received from server*/
     int previousValue = 0;
     /** Server IP address (IPv4) */
-    private final String IP_ADDRESS = "100.74.92.19";
+    private final String IP_ADDRESS = "100.74.97.32";
     /** Server port number */
     private final int PORT_NUMBER = 7896;
 
@@ -171,7 +171,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     public void startClient() {
         // validate the input IP Address
         if(!isValidIP(IP_ADDRESS)) {
-            makeToast("Please enter a valid IP address!");
+            Toast.makeText(getApplicationContext(), "Please enter a valid IP address!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -273,16 +273,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
     /**
-     * Makes a toast pop up.
-     * @param text message text for the toast
-     */
-    private void makeToast(String text) {
-        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0,0);
-        toast.show();
-    }
-
-    /**
      * Check if IP address is valid.
      * @param ip IP address
      * @return valid returns true, invalid returns false
@@ -323,7 +313,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
-                .setColor(Color.RED);
+                .setColor(Color.RED)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
 
         notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
