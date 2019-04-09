@@ -16,4 +16,5 @@
     <string name="demo_text">DEMO APP</string>
     <string name="overview_fragment_textview">This page displays the OVERVIEW</string>
     <string name="uon_logo_description">University of Nottingham Logo</string>
+    <string name="action_settings">Settings</string>
 </resources>

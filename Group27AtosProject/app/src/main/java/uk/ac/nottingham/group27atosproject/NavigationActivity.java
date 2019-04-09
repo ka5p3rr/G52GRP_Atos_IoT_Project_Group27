@@ -287,7 +287,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private final int NOTIFICATION_ID = 001; // a unique int for each notification
     private final String CHANNEL_ID = "100";
 
-    public void createNotification(String notificationTitle) {
+    /**
+     * Creates a notification.
+     * @param notificationContent
+     */
+    public void createNotification(String notificationContent) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -302,15 +306,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             notificationManager.createNotificationChannel(channel);
         }
 
-        Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_warning_notification_icon)
-                .setContentTitle(notificationTitle)
-                .setContentText("Touch to notify all workers")
-                .setContentIntent(pendingIntent)
+                .setContentTitle("WARNING!")
+                .setContentText(notificationContent)
+                .setContentIntent(contentIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setColor(Color.RED)
@@ -320,6 +322,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 
+    /**
+     * Removes notification.
+     */
     public void cancelNotification() {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(NOTIFICATION_ID);
