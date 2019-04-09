@@ -22,7 +22,7 @@ public class NotificationDemoController {
         Parent root = FXMLLoader.load(getClass().getResource("/FXML/WelcomeScreen.fxml"));
         Stage primaryStage = Main.getStage();
         primaryStage.setScene(new Scene(root));
-        Connection.setData("");
+        Connection.resetData();
     }
 
     /**

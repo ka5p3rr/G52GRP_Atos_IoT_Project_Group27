@@ -27,6 +27,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.regex.Pattern;
@@ -43,7 +44,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     /** Previous data value received from server*/
     int previousValue = 0;
     /** Server IP address (IPv4) */
-    private final String IP_ADDRESS = "100.74.97.32";
+    private final String IP_ADDRESS = "10.154.179.96";
     /** Server port number */
     private final int PORT_NUMBER = 7896;
 
@@ -211,11 +212,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
          * @return fetched string from server
          */
         private String connect() {
-            Socket clientSocket = null;
+            Socket clientSocket =  new Socket();
             String data = null;
 
             try {
-                clientSocket = new Socket(IP_ADDRESS, PORT_NUMBER);
+                clientSocket.connect(new InetSocketAddress(IP_ADDRESS,  PORT_NUMBER), 1000);
 
                 DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
                 DataInputStream in = new DataInputStream(clientSocket.getInputStream());
@@ -225,6 +226,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
                 // receive from server
                 data = in.readUTF();
+
+                if(data.contains("N\\A")) {
+                    cancelNotification();
+                    previousValue = 0;
+                }
 
                 if(data.contains("demo")) {
                     String[] values = data.split(",");

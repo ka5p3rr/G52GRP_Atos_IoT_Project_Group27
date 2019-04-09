@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void launchAsWorker(View view) {
         if (!isConnectionActive()) {
-            makeNoConnectionToast();
+            makeToast("ERROR: no network connection");
             return;
         }
         this.launch("worker");
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void launchAsSupervisor(View view) {
         if (!isConnectionActive()) {
-            makeNoConnectionToast();
+            makeToast("ERROR: no network connection");
             return;
         }
         this.launch("supervisor");
@@ -97,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Makes a toast pop up saying that there is not network connection.
      */
-    private void makeNoConnectionToast() {
-        Toast toast = Toast.makeText(getApplicationContext(), "ERROR: no network connection", Toast.LENGTH_SHORT);
+    private void makeToast(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
     }
 

@@ -22,7 +22,7 @@ Software Engineering Group Project (G52GRP) at the University of Nottingham.
   - newer versions should be supported as well
 - Android SDK
   - compileSdkVersion 28
-  - minSdkVersion 15
+  - minSdkVersion 15 - changed to 23 (version of Android on our test devices)
   - targetSdkVersion 28
 
 ## Changelog

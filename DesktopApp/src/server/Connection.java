@@ -15,7 +15,7 @@ public class Connection extends Thread {
     /**
      * This is send back to the client.
      */
-    private static String data = "";
+    private static String data = "N\\A";
 
     /**
      * Constructor
@@ -63,5 +63,9 @@ public class Connection extends Thread {
      */
     public static void setData(String data) {
         Connection.data = data;
+    }
+
+    public static void resetData() {
+        Connection.data = "N\\A";
     }
 }
