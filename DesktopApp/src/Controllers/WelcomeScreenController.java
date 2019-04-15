@@ -27,6 +27,7 @@ import java.util.Optional;
  */
 public class WelcomeScreenController {
     private static Parent currentRoot;
+    private static boolean launchFullscreen = false;
 
     static Parent getCurrentRoot() {
         return currentRoot;
@@ -43,7 +44,7 @@ public class WelcomeScreenController {
         Stage primaryStage = Main.getStage();
         primaryStage.setScene(new Scene(root));
 
-        if(createLaunchDialog()) {
+        if(launchFullscreen) {
             primaryStage.initStyle(StageStyle.UNDECORATED);
         }
         // set all properties
@@ -56,14 +57,11 @@ public class WelcomeScreenController {
         primaryStage.setMaximized(true);
     }
 
-    private boolean createLaunchDialog() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",ButtonType.YES, ButtonType.NO);
-        alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle("Launch configuration");
-        alert.setHeaderText("Do you want to launch in fullscreen?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.filter(buttonType -> buttonType == ButtonType.YES).isPresent();
+    @FXML
+    public void toggleLaunchFullscreen() {
+        launchFullscreen = !launchFullscreen;
+        Main.getStage().close();
+        new Main().start(new Stage());
     }
 
     /**
