@@ -12,9 +12,7 @@ import java.io.IOException;
  * It acts as a "singleton" by providing a static function {@link #getStage()} that returns the primary {@link Stage}.
  */
 public class Main extends Application {
-    /**
-     * Main application {@link Stage}.
-     */
+    /** Main application {@link Stage}. */
     private static Stage stage;
 
     /**
@@ -40,9 +38,7 @@ public class Main extends Application {
         }
     }
 
-    /**
-     * Stops the Server when the FXML Application exits.
-     */
+    /** Stops the Server when the FXML Application exits. */
     @Override
     public void stop(){
         Server.stopServer();

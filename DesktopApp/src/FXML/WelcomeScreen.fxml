@@ -7,39 +7,43 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.WelcomeScreenController">
+<StackPane style="-fx-background-color: #1A296B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.WelcomeScreenController">
    <children>
       <GridPane alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
           <RowConstraints vgrow="SOMETIMES" />
           <RowConstraints vgrow="SOMETIMES" />
-          <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#launchScenarios" prefWidth="250.0" text="Demo" textAlignment="CENTER" GridPane.halignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="GROUP 27 - DEMO" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold" size="100.0" />
+               </font>
+            </Text>
+            <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#launchScenarios" prefWidth="425.0" style="-fx-background-color: #D81B60;" text="Demo" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="45.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" prefWidth="250.0" text="Live Demo" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#launchNotificationDemo" prefWidth="425.0" style="-fx-background-color: #D81B60;" text="Notification Test" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold" size="45.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#launchNotificationDemo" prefWidth="250.0" text="Notification Test" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button focusTraversable="false" mnemonicParsing="false" onAction="#createAlertDialog" text="Connection information" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#createNetworkInformationDialog" style="-fx-background-color: #D81B60;" text="Connection information" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
             </Button>
          </children>
       </GridPane>

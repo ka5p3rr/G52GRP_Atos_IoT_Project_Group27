@@ -1,13 +1,18 @@
 package Controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import main.Main;
@@ -15,6 +20,7 @@ import server.Connection;
 import server.Server;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * WelcomeScreenController class to launch other screens.
@@ -36,20 +42,35 @@ public class WelcomeScreenController {
         currentRoot = root;
         Stage primaryStage = Main.getStage();
         primaryStage.setScene(new Scene(root));
+
+        if(createLaunchDialog()) {
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+        }
         // set all properties
         primaryStage.setTitle("Group 27");
         primaryStage.getIcons().add(new Image("/resources/icon.png"));
         primaryStage.show();
-        primaryStage.setResizable(false);
-//        primaryStage.setFullScreen(true);
+        primaryStage.setMinWidth(1280);
+        primaryStage.setMinHeight(720);
         primaryStage.centerOnScreen();
+        primaryStage.setMaximized(true);
+    }
+
+    private boolean createLaunchDialog() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",ButtonType.YES, ButtonType.NO);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("Launch configuration");
+        alert.setHeaderText("Do you want to launch in fullscreen?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.filter(buttonType -> buttonType == ButtonType.YES).isPresent();
     }
 
     /**
      * Creates a dialog pop up with connection information.
      */
     @FXML
-    public void createAlertDialog() {
+    public void createNetworkInformationDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("Connection information");

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
@@ -13,61 +14,100 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ScenariosController">
+<StackPane style="-fx-background-color: #1A296B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ScenariosController">
    <children>
-      <GridPane alignment="CENTER">
+      <GridPane alignment="CENTER" StackPane.alignment="CENTER">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="85.0" />
             <ColumnConstraints hgrow="SOMETIMES" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints percentHeight="10.0" vgrow="SOMETIMES" />
-            <RowConstraints percentHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="75.0" minHeight="75.0" prefHeight="75.0" vgrow="SOMETIMES" />
             <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="75.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <HBox alignment="CENTER_LEFT" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <GridPane style="-fx-background-color: #18194F;">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#launchWelcomeScreen" text="Back to Welcome Screen">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <MenuButton alignment="CENTER" focusTraversable="false" mnemonicParsing="false" text="Select Scenario">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Scenario 1" />
-                      <MenuItem mnemonicParsing="false" text="Scenario 2" />
-                    </items>
-                     <HBox.margin>
-                        <Insets left="100.0" right="10.0" />
-                     </HBox.margin>
-                  </MenuButton>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scenario X" textAlignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#launchWelcomeScreen" style="-fx-background-color: #D81B60;" text="GO BACK" textFill="WHITE">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                      <font>
-                        <Font name="System Bold" size="25.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
-                     <HBox.margin>
+                  </Button>
+                  <HBox alignment="CENTER" GridPane.columnIndex="1">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently selected scenario:" textAlignment="CENTER">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text fx:id="selectedScenarioText" fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <MenuButton alignment="CENTER" focusTraversable="false" mnemonicParsing="false" style="-fx-background-color: #D81B60;" text="Scenarios" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#changeToScenarioOne" text="Scenario 1" />
+                      <MenuItem mnemonicParsing="false" onAction="#changeToScenarioTwo" text="Scenario 2" />
+                    </items>
+                     <GridPane.margin>
                         <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Text>
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </MenuButton>
                </children>
-            </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="GRAPHS" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            </GridPane>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="PLACEHOLDER TEXT" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="96.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TANK" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="60.0" />
-               </font>
-            </Text>
-            <Slider blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="24.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-font-size: 20px;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <padding>
-                  <Insets left="20.0" right="20.0" />
-               </padding>
-            </Slider>
-            <Button fx:id="runButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#runButton" prefWidth="100.0" style="-fx-background-color: GREEN;" text="RUN" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <GridPane alignment="CENTER" style="-fx-background-color: #18194F;" GridPane.rowIndex="2">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="80.0" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="runButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#runButton" prefWidth="150.0" style="-fx-background-color: GREEN;" text="RUN" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Slider blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0" max="24.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" stylesheets="@../resources/stylesheet.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <styleClass>
+                        <String fx:value="axis" />
+                        <String fx:value="slider" />
+                     </styleClass>
+                     <padding>
+                        <Insets left="50.0" right="50.0" top="10.0" />
+                     </padding>
+                  </Slider>
+               </children>
+            </GridPane>
          </children>
       </GridPane>
    </children>

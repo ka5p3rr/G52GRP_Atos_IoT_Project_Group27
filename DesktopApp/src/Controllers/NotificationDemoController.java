@@ -47,6 +47,14 @@ public class NotificationDemoController {
 
         Parent root = WelcomeScreenController.getCurrentRoot();
         Text text = (Text) root.lookup("#currentlySetText");
-        text.setText("Currently set to: " + Connection.getData());
+
+        String currentlySetTo = null;
+        String[] values = data.split(",");
+        if(values.length >= 2) {
+            int i = Integer.parseInt(values[1]);
+            currentlySetTo = i + "%";
+        }
+
+        text.setText("Currently set to: " + currentlySetTo);
     }
 }

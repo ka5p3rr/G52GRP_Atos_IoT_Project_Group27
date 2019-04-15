@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -22,7 +23,11 @@ public class ScenariosController {
      * Run button in Scenarios scene
      */
     public Button runButton;
+    public Text selectedScenarioText;
 
+    public void initialize() {
+        changeToScenarioOne();
+    }
 
     /**
      * Reloads the Welcome Screen. Called on back button press.
@@ -51,5 +56,15 @@ public class ScenariosController {
             runButton.setStyle("-fx-background-color: Green;");
             runButton.setText("RUN");
         }
+    }
+
+    @FXML
+    public void changeToScenarioOne() {
+        selectedScenarioText.setText("1");
+    }
+
+    @FXML
+    public void changeToScenarioTwo() {
+        selectedScenarioText.setText("2");
     }
 }

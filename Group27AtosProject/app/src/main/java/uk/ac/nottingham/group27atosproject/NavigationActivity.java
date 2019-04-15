@@ -44,7 +44,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     /** Previous data value received from server*/
     int previousValue = 0;
     /** Server IP address (IPv4) */
-    private final String IP_ADDRESS = "10.154.179.96";
+    private final String IP_ADDRESS = "10.0.0.53";
     /** Server port number */
     private final int PORT_NUMBER = 7896;
 
@@ -242,9 +242,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                         if(i < previousValue)
                             cancelNotification();
                         previousValue = i;
-                    }
 
-                    data = "Data received:\n" + data;
+                        data = "Tank capacity " + i + "%";
+                    }
                 }
 
                 Log.i("RECEIVED", data);
