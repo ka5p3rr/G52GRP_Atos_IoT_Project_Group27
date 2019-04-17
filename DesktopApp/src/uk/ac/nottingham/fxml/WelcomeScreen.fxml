@@ -4,13 +4,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane style="-fx-background-color: #1A296B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.WelcomeScreenController">
+<StackPane style="-fx-background-color: #1A296B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.nottingham.controllers.WelcomeScreenController">
    <children>
       <GridPane alignment="CENTER">
         <columnConstraints>
@@ -38,26 +37,14 @@
                   <Font name="System Bold" size="45.0" />
                </font>
             </Button>
-            <HBox alignment="BOTTOM_RIGHT" GridPane.rowIndex="3">
-               <children>
-                  <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#toggleLaunchFullscreen" style="-fx-background-color: #D81B60;" text="Toggle fullscreen" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="20.0" right="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#createNetworkInformationDialog" style="-fx-background-color: #D81B60;" text="Connection information" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="20.0" right="20.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
+            <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#createNetworkInformationDialog" style="-fx-background-color: #D81B60;" text="Connection information" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="20.0" right="20.0" />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
    </children>

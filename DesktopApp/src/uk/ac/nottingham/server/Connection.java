@@ -1,4 +1,4 @@
-package server;
+package uk.ac.nottingham.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

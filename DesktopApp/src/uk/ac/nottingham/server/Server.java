@@ -1,14 +1,19 @@
-package server;
-import java.net.*;
-import java.io.*;
-import java.util.Enumeration;
+package uk.ac.nottingham.server;
 
+import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Enumeration;
 
 /**
  * TCP/IP Server. Implemented as Singleton. Use {@link #getInstance()} to get an instance of this class.
  */
 public class Server extends Thread {
-	private final int SERVER_PORT_NUMBER = 7896;
+	private static final int SERVER_PORT_NUMBER = 7896;
 	private static Server server = null;
 
 	/**
@@ -21,6 +26,7 @@ public class Server extends Thread {
 		return server;
 	}
 
+	/** Private constructor is essential for singleton implementation */
 	private Server() {}
 
 	/**
@@ -35,14 +41,16 @@ public class Server extends Thread {
 				final NetworkInterface nic = interfaces.nextElement( );
 
 				// skip all loopback interfaces
-				if (nic.isLoopback())
+				if (nic.isLoopback()){
 					continue;
+				}
 
 				for (InterfaceAddress addr : nic.getInterfaceAddresses()) {
 					final InetAddress inet_addr = addr.getAddress( );
 
-					if (!(inet_addr instanceof Inet4Address))
+					if (!(inet_addr instanceof Inet4Address)) {
 						continue;
+					}
 
 					connectionInformation.append(nic.getDisplayName()).append("\n");
 					connectionInformation.append("\tName:    ").append(nic.getName()).append("\n");

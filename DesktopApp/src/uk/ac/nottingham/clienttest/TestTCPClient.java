@@ -1,6 +1,11 @@
-package clientTEST;
-import java.net.*;
-import java.io.*;
+package uk.ac.nottingham.clienttest;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 /**
  * TCP IP Client that tests the connection to server. It connects every second to retrieve the data from server.

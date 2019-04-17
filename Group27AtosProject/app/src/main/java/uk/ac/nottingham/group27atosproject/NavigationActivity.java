@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -44,9 +43,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     /** Previous data value received from server*/
     int previousValue = 0;
     /** Server IP address (IPv4) */
-    private final String IP_ADDRESS = "10.0.0.53";
+    private final String IP_ADDRESS = "192.168.43.146";
     /** Server port number */
-    private final int PORT_NUMBER = 7896;
+    private static final int PORT_NUMBER = 7896;
 
 
     /**
