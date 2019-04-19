@@ -1,5 +1,9 @@
 package uk.ac.nottingham.server;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -17,20 +21,27 @@ public class Server extends Thread {
 	private static Server server = null;
 
 	/**
-	 * Returns an already created instance. If an object hasn't been created yet, it is created and returned.
+	 * Returns an already created instance. If an object hasn't been created yet, it is created and returned. If there are no active network connections it returns null.
 	 * @return object instance
 	 */
 	public static Server getInstance() {
+		// no network connection
+		if(getNetInfo().isEmpty()) {
+			return null;
+		}
+
 		if(server == null)
 			server = new Server();
 		return server;
 	}
 
 	/** Private constructor is essential for singleton implementation */
-	private Server() {}
+	private Server() {
+		System.out.println("server started");
+	}
 
 	/**
-	 * Retrieves the list of network interfaces. It prints out all connected interfaces with their respective IPV4 addresses.
+	 * Retrieves the list of network interfaces. It prints out all connected interfaces with their respective IPv4 addresses. It returns the list of all interfaces connected to a network. If there are no network connections it returns an empty string.
 	 * @return string with all connected interfaces and their ip addresses
 	 */
 	public static String getNetInfo() {
@@ -55,7 +66,6 @@ public class Server extends Thread {
 					connectionInformation.append(nic.getDisplayName()).append("\n");
 					connectionInformation.append("\tName:    ").append(nic.getName()).append("\n");
 					connectionInformation.append("\tAddress: ").append(inet_addr.getHostAddress());
-					connectionInformation.append("\n\n");
 				}
 			}
 		} catch (IOException e){e.printStackTrace();}
@@ -71,7 +81,7 @@ public class Server extends Thread {
 		try {
 			ServerSocket listenSocket = new ServerSocket(SERVER_PORT_NUMBER);
 			System.out.println("server is running");
-			System.out.println(getNetInfo());
+			System.out.println("\nConnection information: " + getNetInfo() + "\n");
 
 			while (true) {
 				Socket clientSocket = listenSocket.accept();
@@ -83,9 +93,9 @@ public class Server extends Thread {
 	}
 
 	/**
-	 * Exit the server
+	 * Exit the server.
 	 */
-	public static void stopServer() {
+	public void stopServer() {
 		System.out.println("server stopped running");
 		System.exit(0);
 	}

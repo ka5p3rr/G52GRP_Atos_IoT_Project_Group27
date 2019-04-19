@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import uk.ac.nottingham.main.Main;
 import uk.ac.nottingham.server.Connection;
@@ -34,17 +35,19 @@ public class NotificationDemoController {
      */
     @FXML
     public void notificationDemo(ActionEvent event) {
-        String eventString = event.getSource().toString();
-        String data = null;
+        String eventString = ((Button)event.getSource()).getText();;
+        String data;
 
-        if(eventString.contains("50")) {
-            data = "demo,50";
-        } else if(eventString.contains("70")) {
-            data = "demo,70";
-        } else if (eventString.contains("90")){
-            data = "demo,90";
-        } else if(eventString.contains("0")) {
+        if(eventString.equals("0%")) {
             data = "demo,0";
+        } else if(eventString.equals("50%")) {
+            data = "demo,50";
+        } else if(eventString.equals("70%")) {
+            data = "demo,70";
+        } else if (eventString.equals("90%")){
+            data = "demo,90";
+        } else {
+            return;
         }
         Connection.setData(data);
 

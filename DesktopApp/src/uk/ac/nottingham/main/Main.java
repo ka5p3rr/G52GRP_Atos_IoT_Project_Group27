@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -47,6 +48,11 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+        if(Server.getInstance() == null) {
+            makeNoNetworkAlert();
+            return;
+        }
+
         stage = primaryStage;
         // can throw an IOException when the fxml file fails to load
         try {
@@ -71,7 +77,17 @@ public class Main extends Application {
     /** Stops the Server when the fxml Application exits. */
     @Override
     public void stop(){
-        Server.stopServer();
+        Server server = Server.getInstance();
+        if(server != null)
+            server.stopServer();
+    }
+
+    private void makeNoNetworkAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Connection error");
+        alert.setHeaderText("No active network connection");
+        alert.setContentText("Please connect to a network and try again.");
+        alert.showAndWait();
     }
 
     /**
@@ -79,19 +95,14 @@ public class Main extends Application {
      * @param args the primary {@link Stage} of the application
      */
     public static void main(String[] args) {
-        // run the server
+        // start the server
         Server server = Server.getInstance();
-        server.start();
-        System.out.println("server started");
+        if(server != null) {
+            server.start();
+        }
 
         // run the UI
         launch(args);
-
-        try {
-            server.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

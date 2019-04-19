@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
@@ -16,12 +17,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -29,7 +30,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.regex.Pattern;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     /** Thread running the TCP IP client */
@@ -43,7 +43,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     /** Previous data value received from server*/
     int previousValue = 0;
     /** Server IP address (IPv4) */
-    private final String IP_ADDRESS = "192.168.43.146";
+    private String ipAddress;
     /** Server port number */
     private static final int PORT_NUMBER = 7896;
 
@@ -57,10 +57,14 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+        // get the server ip address set in the app preferences
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        ipAddress = prefs.getString(getString(R.string.pref_ip_key), null);
+
         // text view to change with fetched data
         textView = findViewById(R.id.textView);
 
-        // what user was selected in the Main Activity
+        // what user selected in the Main Activity
         Intent intent = getIntent();
         runningAsUser = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         this.sendOut = runningAsUser;
@@ -134,10 +138,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         // set the text itself
         switch (runningAsUser) {
-            case "admin":
-                userName_textview.setText(R.string.admin_username);
-                userMail_textview.setText(R.string.admin_usermail);
-                break;
             case "supervisor":
                 userName_textview.setText(R.string.supervisor_username);
                 userMail_textview.setText(R.string.supervisor_usermail);
@@ -169,12 +169,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
      * Start running the client.
      */
     public void startClient() {
-        // validate the input IP Address
-        if(!isValidIP(IP_ADDRESS)) {
-            Toast.makeText(getApplicationContext(), "Please enter a valid IP address!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         // run it as a new thread
         clientThread = new ClientThread();
         clientThread.start();
@@ -215,7 +209,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             String data = null;
 
             try {
-                clientSocket.connect(new InetSocketAddress(IP_ADDRESS,  PORT_NUMBER), 1000);
+                clientSocket.connect(new InetSocketAddress(ipAddress,  PORT_NUMBER), 1000);
 
                 DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
                 DataInputStream in = new DataInputStream(clientSocket.getInputStream());
@@ -275,17 +269,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         void stopRunning() {
             this.keepRunning = false;
         }
-    }
-
-    /**
-     * Check if IP address is valid.
-     * @param ip IP address
-     * @return valid returns true, invalid returns false
-     */
-    public static boolean isValidIP(final String ip) {
-        // Regex to check valid ip addresses
-        final Pattern PATTERN = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
-        return PATTERN.matcher(ip).matches();
     }
 
 
