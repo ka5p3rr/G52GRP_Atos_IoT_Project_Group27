@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_overview"
             android:title="@string/overview_menuitem" />
     </group>
-    <group >
+    <group>
         <item
             android:id="@+id/signout_menuitem"
             android:icon="@drawable/ic_back"

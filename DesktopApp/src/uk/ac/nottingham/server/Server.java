@@ -9,99 +9,94 @@ import java.util.Enumeration;
  * class.
  */
 public class Server extends Thread {
-    private static final int SERVER_PORT_NUMBER = 7896;
-    private static Server server = null;
+  private static final int SERVER_PORT_NUMBER = 7896;
+  private static Server server = null;
 
-    /**
-     * Returns an already created instance. If an object hasn't been created yet, it is created
-     * and returned. If there are no active network connections it returns null.
-     *
-     * @return object instance
-     */
-    public static Server getInstance() {
-        // no network connection
-        if (getNetInfo().isEmpty()) {
-            return null;
+  /**
+   * Returns an already created instance. If an object hasn't been created yet, it is created and
+   * returned. If there are no active network connections it returns null.
+   *
+   * @return object instance
+   */
+  public static Server getInstance() {
+    // no network connection
+    if (getNetInfo().isEmpty()) {
+      return null;
+    }
+
+    if (server == null) server = new Server();
+    return server;
+  }
+
+  /** Private constructor is essential for singleton implementation */
+  private Server() {
+    System.out.println("server started");
+  }
+
+  /**
+   * Retrieves the list of network interfaces. It prints out all connected interfaces with their
+   * respective IPv4 addresses. It returns the list of all interfaces connected to a network. If
+   * there are no network connections it returns an empty string.
+   *
+   * @return string with all connected interfaces and their ip addresses
+   */
+  public static String getNetInfo() {
+    StringBuilder connectionInformation = new StringBuilder();
+    try {
+      Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+      while (interfaces.hasMoreElements()) {
+        final NetworkInterface nic = interfaces.nextElement();
+
+        // skip all loopback interfaces
+        if (nic.isLoopback()) {
+          continue;
         }
 
-        if (server == null)
-            server = new Server();
-        return server;
-    }
+        for (InterfaceAddress addr : nic.getInterfaceAddresses()) {
+          final InetAddress inet_addr = addr.getAddress();
 
-    /**
-     * Private constructor is essential for singleton implementation
-     */
-    private Server() {
-        System.out.println("server started");
-    }
+          if (!(inet_addr instanceof Inet4Address)) {
+            continue;
+          }
 
-    /**
-     * Retrieves the list of network interfaces. It prints out all connected interfaces with
-     * their respective IPv4 addresses. It returns the list of all interfaces connected to a
-     * network. If there are no network connections it returns an empty string.
-     *
-     * @return string with all connected interfaces and their ip addresses
-     */
-    public static String getNetInfo() {
-        StringBuilder connectionInformation = new StringBuilder();
-        try {
-            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            while (interfaces.hasMoreElements()) {
-                final NetworkInterface nic = interfaces.nextElement();
-
-                // skip all loopback interfaces
-                if (nic.isLoopback()) {
-                    continue;
-                }
-
-                for (InterfaceAddress addr : nic.getInterfaceAddresses()) {
-                    final InetAddress inet_addr = addr.getAddress();
-
-                    if (!(inet_addr instanceof Inet4Address)) {
-                        continue;
-                    }
-
-                    connectionInformation.append(nic.getDisplayName()).append("\n");
-                    connectionInformation.append("\tName:    ").append(nic.getName()).append("\n");
-                    connectionInformation.append("\tAddress: ").append(inet_addr.getHostAddress());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+          connectionInformation.append(nic.getDisplayName()).append("\n");
+          connectionInformation.append("\tName:    ").append(nic.getName()).append("\n");
+          connectionInformation.append("\tAddress: ").append(inet_addr.getHostAddress());
         }
-
-        return connectionInformation.toString();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
-    /**
-     * Main server method is a forever loop waiting for a connection on a client socket. Each
-     * connection is handled on a new thread.
-     */
-    @Override
-    public void run() {
-        try {
-            ServerSocket listenSocket = new ServerSocket(SERVER_PORT_NUMBER);
-            System.out.println("server is running");
-            System.out.println("\nConnection information: " + getNetInfo() + "\n");
+    return connectionInformation.toString();
+  }
 
-            while (true) {
-                Socket clientSocket = listenSocket.accept();
-                System.out.println("Connection from " + clientSocket.getInetAddress() +
-                        ":" + clientSocket.getPort());
-                // create the connection and start the thread
-                new Connection(clientSocket).start();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+  /**
+   * Main server method is a forever loop waiting for a connection on a client socket. Each
+   * connection is handled on a new thread.
+   */
+  @Override
+  public void run() {
+    try {
+      ServerSocket listenSocket = new ServerSocket(SERVER_PORT_NUMBER);
+      System.out.println("server is running");
+      System.out.println("\nConnection information: " + getNetInfo() + "\n");
 
-    /**
-     * Exit the server.
-     */
-    public void stopServer() {
-        System.out.println("server stopped running");
-        System.exit(0);
+      while (true) {
+        Socket clientSocket = listenSocket.accept();
+        System.out.println(
+            "Connection from " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
+        // create the connection and start the thread
+        new Connection(clientSocket).start();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
+
+  /** Exit the server. */
+  public void stopServer() {
+    System.out.println("server stopped running");
+    System.exit(0);
+  }
 }

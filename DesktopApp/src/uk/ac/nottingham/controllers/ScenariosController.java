@@ -13,59 +13,57 @@ import uk.ac.nottingham.server.Connection;
 import java.io.IOException;
 
 /**
- * Controller for the Scenarios screen.
- * IT WILL IMPLEMENT MORE FUNCTIONALITY LATER
- * RIGHT NOW ONLY RUN / RESUME BUTTON CHANGES COLOURS
+ * Controller for the Scenarios screen. IT WILL IMPLEMENT MORE FUNCTIONALITY LATER RIGHT NOW ONLY
+ * RUN / RESUME BUTTON CHANGES COLOURS
  */
 public class ScenariosController {
-    /**
-     * Run button in Scenarios scene
-     */
-    public Button runButton;
-    public Text selectedScenarioText;
+  /** Run button in Scenarios scene */
+  public Button runButton;
 
-    public void initialize() {
-        changeToScenarioOne();
-    }
+  public Text selectedScenarioText;
 
-    /**
-     * Reloads the Welcome Screen. Called on back button press.
-     *
-     * @throws IOException when the fxml file can't be loaded
-     */
-    @FXML
-    public void returnToWelcomeScreen() throws IOException {
-        Parent root = FXMLLoader.load(
-                getClass().getResource("/uk/ac/nottingham/fxml/WelcomeScreen.fxml"));
-        Scene scene = Main.initWelcomeScreenScene(root);
-        Main.getStage().setScene(scene);
-        Connection.resetData();
-    }
+  public void initialize() {
+    changeToScenarioOne();
+  }
 
-    /**
-     * Changes the colour and text of the RUN / RESUME {@link Button} on click.
-     *
-     * @param event {@link ActionEvent}
-     */
-    @FXML
-    public void runButton(ActionEvent event) {
-        String string = event.getSource().toString();
-        if (string.contains("RUN")) {
-            runButton.setStyle("-fx-background-color: Orange;");
-            runButton.setText("RESUME");
-        } else {
-            runButton.setStyle("-fx-background-color: Green;");
-            runButton.setText("RUN");
-        }
-    }
+  /**
+   * Reloads the Welcome Screen. Called on back button press.
+   *
+   * @throws IOException when the fxml file can't be loaded
+   */
+  @FXML
+  public void returnToWelcomeScreen() throws IOException {
+    Parent root =
+        FXMLLoader.load(getClass().getResource("/uk/ac/nottingham/fxml/WelcomeScreen.fxml"));
+    Scene scene = Main.initWelcomeScreenScene(root);
+    Main.getStage().setScene(scene);
+    Connection.resetData();
+  }
 
-    @FXML
-    public void changeToScenarioOne() {
-        selectedScenarioText.setText("1");
+  /**
+   * Changes the colour and text of the RUN / RESUME {@link Button} on click.
+   *
+   * @param event {@link ActionEvent}
+   */
+  @FXML
+  public void runButton(ActionEvent event) {
+    String string = event.getSource().toString();
+    if (string.contains("RUN")) {
+      runButton.setStyle("-fx-background-color: Orange;");
+      runButton.setText("RESUME");
+    } else {
+      runButton.setStyle("-fx-background-color: Green;");
+      runButton.setText("RUN");
     }
+  }
 
-    @FXML
-    public void changeToScenarioTwo() {
-        selectedScenarioText.setText("2");
-    }
+  @FXML
+  public void changeToScenarioOne() {
+    selectedScenarioText.setText("1");
+  }
+
+  @FXML
+  public void changeToScenarioTwo() {
+    selectedScenarioText.setText("2");
+  }
 }

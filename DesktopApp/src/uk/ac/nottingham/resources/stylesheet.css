@@ -1,6 +1,7 @@
 .slider {
     -fx-font-size: 20px;
 }
+
 .slider .axis {
     -fx-tick-label-fill: white;
 }

@@ -2,50 +2,59 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<StackPane style="-fx-background-color: #1A296B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.nottingham.controllers.WelcomeScreenController">
-   <children>
-      <GridPane alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
-          <RowConstraints vgrow="SOMETIMES" />
-          <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="GROUP 27 - DEMO" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="100.0" />
-               </font>
-            </Text>
-            <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#launchScenarios" prefWidth="425.0" style="-fx-background-color: #D81B60;" text="Demo" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="45.0" />
-               </font>
-            </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#launchNotificationDemo" prefWidth="425.0" style="-fx-background-color: #D81B60;" text="Notification Test" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="45.0" />
-               </font>
-            </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#createNetworkInformationDialog" style="-fx-background-color: #D81B60;" text="Connection information" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="20.0" right="20.0" />
-               </GridPane.margin>
-            </Button>
-         </children>
-      </GridPane>
-   </children>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<StackPane style="-fx-background-color: #1A296B;" xmlns="http://javafx.com/javafx/8.0.171"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="uk.ac.nottingham.controllers.WelcomeScreenController">
+    <children>
+        <GridPane alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="GROUP 27 - DEMO"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="100.0"/>
+                    </font>
+                </Text>
+                <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false"
+                        mnemonicParsing="false" onAction="#launchScenarios" prefWidth="425.0"
+                        style="-fx-background-color: #D81B60;" text="Demo" textAlignment="CENTER"
+                        textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="45.0"/>
+                    </font>
+                </Button>
+                <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false"
+                        mnemonicParsing="false" onAction="#launchNotificationDemo" prefWidth="425.0"
+                        style="-fx-background-color: #D81B60;" text="Notification Test"
+                        textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER"
+                        GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="45.0"/>
+                    </font>
+                </Button>
+                <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false"
+                        mnemonicParsing="false" onAction="#createNetworkInformationDialog"
+                        style="-fx-background-color: #D81B60;" text="Connection information"
+                        textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT"
+                        GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                    <GridPane.margin>
+                        <Insets bottom="20.0" right="20.0"/>
+                    </GridPane.margin>
+                </Button>
+            </children>
+        </GridPane>
+    </children>
 </StackPane>
