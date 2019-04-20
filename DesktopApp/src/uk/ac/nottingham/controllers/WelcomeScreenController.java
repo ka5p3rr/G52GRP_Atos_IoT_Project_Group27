@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import uk.ac.nottingham.main.Main;
 import uk.ac.nottingham.server.Server;
+
 import java.io.IOException;
 
 /**
@@ -35,22 +36,26 @@ public class WelcomeScreenController {
 
     /**
      * Method called by clicking the Scenarios button, which launches the according screen.
+     *
      * @throws IOException when the fxml file can't be loaded
      */
     @FXML
     public void launchScenarios() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/uk/ac/nottingham/fxml/Scenarios.fxml"));
+        Parent root = FXMLLoader.load(
+                getClass().getResource("/uk/ac/nottingham/fxml/Scenarios.fxml"));
         Stage primaryStage = Main.getStage();
         primaryStage.setScene(new Scene(root));
     }
 
     /**
      * Called from the UI. It opens the Notification Demo Screen.
+     *
      * @throws IOException when the fxml file can't be loaded
      */
     @FXML
     public void launchNotificationDemo() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/uk/ac/nottingham/fxml/NotificationDemo.fxml"));
+        Parent root = FXMLLoader.load(
+                getClass().getResource("/uk/ac/nottingham/fxml/NotificationDemo.fxml"));
         Stage primaryStage = Main.getStage();
         primaryStage.setScene(new Scene(root));
     }

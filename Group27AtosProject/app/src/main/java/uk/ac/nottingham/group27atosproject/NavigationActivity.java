@@ -23,6 +23,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -32,24 +34,38 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    /** Thread running the TCP IP client */
+    /**
+     * Thread running the TCP IP client
+     */
     ClientThread clientThread = null;
-    /** Changes depending on what user (supervisor or worker) was selected in main activity */
+    /**
+     * Changes depending on what user (supervisor or worker) was selected in main activity
+     */
     String runningAsUser;
-    /** {@link TextView} being changed with the fetched data from server */
+    /**
+     * {@link TextView} being changed with the fetched data from server
+     */
     TextView textView;
-    /** Data being send to the server */
+    /**
+     * Data being send to the server
+     */
     String sendOut = null;
-    /** Previous data value received from server*/
+    /**
+     * Previous data value received from server
+     */
     int previousValue = 0;
-    /** Server IP address (IPv4) */
+    /**
+     * Server IP address (IPv4)
+     */
     private String ipAddress;
-    /** Server port number */
+    /**
+     * Server port number
+     */
     private static final int PORT_NUMBER = 7896;
-
 
     /**
      * Main function that launches the activity.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -74,7 +90,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -92,7 +109,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
     /**
-     * Overrides the back button functionality. Back button only closes the {@link DrawerLayout} when open. Otherwise button press is ignored.
+     * Overrides the back button functionality. Back button only closes the {@link DrawerLayout}
+     * when open. Otherwise button press is ignored.
      */
     @Override
     public void onBackPressed() {
@@ -104,6 +122,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     /**
      * When item selected execute this function. Switch case changed behaviour per {@link MenuItem}.
+     *
      * @param item {@link MenuItem} from the drawer menu
      * @return
      */
@@ -112,11 +131,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        switch(id) {
+        switch (id) {
             case R.id.signout_menuitem:
-                clientThread.stopRunning();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                goToMainActivity();
                 break;
         }
 
@@ -126,25 +143,33 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         return true;
     }
 
+    public void goToMainActivity() {
+        clientThread.stopRunning();
+        cancelNotification();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * Changes the header text in {@link NavigationView} with email and name per user.
+     *
      * @param navigationView navigation view with the header
      */
     private void changeHeaderText(NavigationView navigationView) {
         View headerView = navigationView.getHeaderView(0);
         // get the text view fields to change the text
-        TextView userName_textview = headerView.findViewById(R.id.userName_textview);
-        TextView userMail_textview = headerView.findViewById(R.id.userMail_textview);
+        TextView userNameTextView = headerView.findViewById(R.id.userName_textview);
+        TextView userMailTextView = headerView.findViewById(R.id.userMail_textview);
 
         // set the text itself
         switch (runningAsUser) {
             case "supervisor":
-                userName_textview.setText(R.string.supervisor_username);
-                userMail_textview.setText(R.string.supervisor_usermail);
+                userNameTextView.setText(R.string.supervisor_username);
+                userMailTextView.setText(R.string.supervisor_usermail);
                 break;
             case "worker":
-                userName_textview.setText(R.string.worker_username);
-                userMail_textview.setText(R.string.worker_usermail);
+                userNameTextView.setText(R.string.worker_username);
+                userMailTextView.setText(R.string.worker_usermail);
                 break;
         }
     }
@@ -175,7 +200,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
     /**
-     * Inner class that extends {@link Thread} and runs the TCP IP client. On change updates the UI using {@link Handler}.
+     * Inner class that extends {@link Thread} and runs the TCP IP client. On change updates the
+     * UI using {@link Handler}.
      */
     class ClientThread extends Thread {
         private Boolean keepRunning = true;
@@ -189,6 +215,14 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 final String data = connect();
                 UIHandler.post(new Runnable() {
                     public void run() {
+                        if (data == null) {
+                            goToMainActivity();
+                            Toast toast = Toast.makeText(
+                                    getApplicationContext(),
+                                    getString(R.string.error_server),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
                         textView.setText(data);
                     }
                 });
@@ -201,15 +235,17 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         }
 
         /**
-         * Does the actual TCP IP Client Server connection
+         * Does the actual TCP IP Client Server connection. Returns {@link String} received from
+         * server. Can return null when no data received.
+         *
          * @return fetched string from server
          */
         private String connect() {
-            Socket clientSocket =  new Socket();
+            Socket clientSocket = new Socket();
             String data = null;
 
             try {
-                clientSocket.connect(new InetSocketAddress(ipAddress,  PORT_NUMBER), 1000);
+                clientSocket.connect(new InetSocketAddress(ipAddress, PORT_NUMBER), 1000);
 
                 DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
                 DataInputStream in = new DataInputStream(clientSocket.getInputStream());
@@ -220,19 +256,17 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 // receive from server
                 data = in.readUTF();
 
-                if(data.contains("N\\A")) {
+                if (data.contains(getString(R.string.default_data))) {
                     cancelNotification();
                     previousValue = 0;
-                }
-
-                if(data.contains("demo")) {
+                } else if (data.contains("demo")) {
                     String[] values = data.split(",");
 
-                    if(values.length >= 2) {
+                    if (values.length >= 2) {
                         int i = Integer.parseInt(values[1]);
-                        if(i > previousValue)
+                        if (i > previousValue)
                             createNotification("Tank capacity " + i + "%");
-                        if(i < previousValue)
+                        if (i < previousValue)
                             cancelNotification();
                         previousValue = i;
 
@@ -252,12 +286,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
             // This piece of code is executed no matter what. Even when an Exception is thrown.
             finally {
-                if (clientSocket != null)
-                    try {
-                        clientSocket.close();
-                    } catch (IOException e) {
-                        Log.e("CLOSE", e.getMessage());
-                    }
+                try {
+                    clientSocket.close();
+                } catch (IOException e) {
+                    Log.e("CLOSE", e.getMessage());
+                }
             }
 
             return data;
@@ -277,10 +310,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     /**
      * Creates a notification.
-     * @param notificationContent
+     *
+     * @param notificationContent text content of the notification
      */
     public void createNotification(String notificationContent) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -294,7 +329,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             notificationManager.createNotificationChannel(channel);
         }
 
-        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+                new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_warning_notification_icon)
@@ -305,7 +341,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 .setAutoCancel(true)
                 .setColor(Color.RED)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
 
         notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
@@ -314,7 +350,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
      * Removes notification.
      */
     public void cancelNotification() {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(NOTIFICATION_ID);
     }
 }

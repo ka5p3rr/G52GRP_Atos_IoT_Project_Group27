@@ -14,11 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+/**
+ * Main app activity that shows two buttons to launch {@link NavigationActivity} and a settings
+ * button that leads to {@link SettingsActivity}.
+ */
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "ac.uk.nottingham.group27atosproject.MESSAGE";
 
     /**
      * On Activity creation - launch the activity.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Creates the menu inflater (three dots in the top right corner).
+     *
      * @param menu
      * @return
      */
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Controls what to do when item from inflater touched.
+     *
      * @param item
      * @return
      */
@@ -59,44 +66,48 @@ public class MainActivity extends AppCompatActivity {
      * Ignore all back button presses.
      */
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+    }
 
 
     /**
      * Run {@link NavigationActivity} as "worker"
+     *
      * @param view
      */
     public void launchAsWorker(View view) {
-        if (!isConnectionActive()) {
-            makeToast("ERROR: no network connection");
+        if (!isNetworkFunctioning())
             return;
-        }
-        if(!isIpAddressSet()) {
-            makeToast("ERROR: IP Address not set");
-            return;
-        }
         this.launch("worker");
     }
 
     /**
      * Run {@link NavigationActivity} as "supervisor"
+     *
      * @param view
      */
     public void launchAsSupervisor(View view) {
-        if (!isConnectionActive()) {
-            makeToast("ERROR: no network connection");
+        if (!isNetworkFunctioning())
             return;
-        }
-        if(!isIpAddressSet()) {
-            makeToast("ERROR: IP Address not set");
-            return;
-        }
         this.launch("supervisor");
+    }
+
+    private boolean isNetworkFunctioning() {
+        if (!isConnectionActive()) {
+            makeToast(getString(R.string.error_network));
+            return false;
+        }
+        if (!isIpAddressSet()) {
+            makeToast(getString(R.string.error_ip_address));
+            return false;
+        }
+        return true;
     }
 
 
     /**
      * Creates a new {@link Intent} to launch the {@link NavigationActivity} for a specific user.
+     *
      * @param userSelected species the user to launch the activity with
      */
     private void launch(String userSelected) {
@@ -113,17 +124,30 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+    /**
+     * Checks whether the device is connected to a network. Returns if there is an active network
+     * connection. Returns false when no network found.
+     *
+     * @return true - exits active connection, false - no connection
+     */
     private boolean isConnectionActive() {
-        ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
+    /**
+     * Checks whether the IP address has been set in the preferences. If not returns false, if
+     * yes returns true.
+     *
+     * @return true if IP set else false
+     */
     private boolean isIpAddressSet() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String ipAddress = prefs.getString(getString(R.string.pref_ip_key), null);
-        if(ipAddress == null)
-            return  false;
+        if (ipAddress == null)
+            return false;
         return true;
     }
 }

@@ -16,4 +16,10 @@
     <string name="uon_logo_description">University of Nottingham Logo</string>
     <string name="action_settings">Settings</string>
     <string name="pref_ip_key">ip_address</string>
+    <string name="default_data">N\\A</string>
+    <string name="error_network">"ERROR: No network connection"</string>
+    <string name="error_ip_address">"ERROR: IP Address not set"</string>
+    <string name="error_server">
+        "ERROR: Can't connect to server\n\nCheck IP address and server status"
+    </string>
 </resources>

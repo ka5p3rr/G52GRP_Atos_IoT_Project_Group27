@@ -3,11 +3,13 @@ package uk.ac.nottingham.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import uk.ac.nottingham.main.Main;
 import uk.ac.nottingham.server.Connection;
+
 import java.io.IOException;
 
 public class NotificationDemoController {
@@ -20,31 +22,36 @@ public class NotificationDemoController {
 
     /**
      * Reloads the Welcome Screen fxml scene.
+     *
      * @throws IOException when the fxml file can't be loaded
      */
     @FXML
     public void returnToWelcomeScreen() throws IOException {
-        Scene scene = Main.initWelcomeScreenScene(FXMLLoader.load(getClass().getResource("/uk/ac/nottingham/fxml/WelcomeScreen.fxml")));
+        Parent root = FXMLLoader.load(
+                getClass().getResource("/uk/ac/nottingham/fxml/WelcomeScreen.fxml"));
+        Scene scene = Main.initWelcomeScreenScene(root);
         Main.getStage().setScene(scene);
         Connection.resetData();
     }
 
     /**
-     * Set the data to send from server on button click. Also changes the text in the fxml to match this.
+     * Set the data to send from server on button click. Also changes the text in the fxml to
+     * match this.
+     *
      * @param event on click button event
      */
     @FXML
     public void notificationDemo(ActionEvent event) {
-        String eventString = ((Button)event.getSource()).getText();;
+        String eventString = ((Button) event.getSource()).getText();
         String data;
 
-        if(eventString.equals("0%")) {
+        if (eventString.equals("0%")) {
             data = "demo,0";
-        } else if(eventString.equals("50%")) {
+        } else if (eventString.equals("50%")) {
             data = "demo,50";
-        } else if(eventString.equals("70%")) {
+        } else if (eventString.equals("70%")) {
             data = "demo,70";
-        } else if (eventString.equals("90%")){
+        } else if (eventString.equals("90%")) {
             data = "demo,90";
         } else {
             return;
@@ -52,7 +59,7 @@ public class NotificationDemoController {
         Connection.setData(data);
 
         String[] values = data.split(",");
-        if(values.length >= 2) {
+        if (values.length >= 2) {
             int i = Integer.parseInt(values[1]);
             data = i + "%";
         }

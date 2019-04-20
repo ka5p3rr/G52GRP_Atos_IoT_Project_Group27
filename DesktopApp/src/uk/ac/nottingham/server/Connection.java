@@ -19,38 +19,46 @@ public class Connection extends Thread {
 
     /**
      * Constructor
+     *
      * @param aClientSocket socket to use for each connection
      */
     Connection(Socket aClientSocket) {
         try {
             clientSocket = aClientSocket;
-            in = new DataInputStream( clientSocket.getInputStream());
-            out = new DataOutputStream( clientSocket.getOutputStream());
-        } catch(IOException e) {e.printStackTrace();}
+            in = new DataInputStream(clientSocket.getInputStream());
+            out = new DataOutputStream(clientSocket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Executes this class thread. Reads from the input data from socket and sends back the data.
      */
-    public void run(){
+    public void run() {
         try {
             // always needs to read the input stream
             System.out.println("Received: " + in.readUTF());
             // here do processing for what to sent to clients¬
             System.out.println("Responded: " + data);
             out.writeUTF(data);
-        } catch(IOException e) {e.printStackTrace();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // finally get executed no matter what, even if exception is thrown
         finally {
             try {
                 clientSocket.close();
-            } catch (IOException e) {e.printStackTrace();}
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     /**
      * Get the data that is being send to the TCP IP Client.
+     *
      * @return string of data
      */
     public static String getData() {
@@ -59,6 +67,7 @@ public class Connection extends Thread {
 
     /**
      * Set the data to send to Client.
+     *
      * @param data string data
      */
     public static void setData(String data) {
