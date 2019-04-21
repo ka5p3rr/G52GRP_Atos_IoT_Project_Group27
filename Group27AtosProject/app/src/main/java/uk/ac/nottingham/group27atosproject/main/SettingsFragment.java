@@ -1,6 +1,7 @@
-package uk.ac.nottingham.group27atosproject;
+package uk.ac.nottingham.group27atosproject.main;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.Preference;
@@ -8,6 +9,8 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.widget.Toast;
 
 import java.util.regex.Pattern;
+
+import uk.ac.nottingham.group27atosproject.R;
 
 /** A simple {@link Fragment} subclass. */
 public class SettingsFragment extends PreferenceFragmentCompat
@@ -43,7 +46,11 @@ public class SettingsFragment extends PreferenceFragmentCompat
   }
 
   /**
-   * Called when the {@link EditTextPreference} of IP is changed.
+   * {@inheritDoc}
+   *
+   * <p>
+   *
+   * <p>Called when the {@link EditTextPreference} of IP is changed.
    *
    * @param preference preference that has been modified
    * @param o changed object
@@ -67,7 +74,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
    * @param preference the preference to set the summary for
    * @param text summary text
    */
-  private void setIpPreferenceSummary(Preference preference, String text) {
+  private void setIpPreferenceSummary(@NonNull Preference preference, String text) {
     preference.setSummary("Currently set to: " + text);
   }
 }

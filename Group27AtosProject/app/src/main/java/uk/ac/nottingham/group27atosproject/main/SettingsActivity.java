@@ -1,7 +1,9 @@
-package uk.ac.nottingham.group27atosproject;
+package uk.ac.nottingham.group27atosproject.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import uk.ac.nottingham.group27atosproject.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

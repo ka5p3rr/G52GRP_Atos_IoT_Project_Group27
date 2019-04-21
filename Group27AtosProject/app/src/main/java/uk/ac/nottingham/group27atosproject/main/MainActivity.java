@@ -1,4 +1,4 @@
-package uk.ac.nottingham.group27atosproject;
+package uk.ac.nottingham.group27atosproject.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import uk.ac.nottingham.group27atosproject.R;
+
 /**
  * Main app activity that shows two buttons to launch {@link NavigationActivity} and a settings
  * button that leads to {@link SettingsActivity}.
@@ -21,23 +23,12 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
   public static final String EXTRA_MESSAGE = "ac.uk.nottingham.group27atosproject.MESSAGE";
 
-  /**
-   * On Activity creation - launch the activity.
-   *
-   * @param savedInstanceState
-   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
   }
 
-  /**
-   * Creates the menu inflater (three dots in the top right corner).
-   *
-   * @param menu
-   * @return
-   */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater menuInflater = getMenuInflater();
@@ -45,12 +36,6 @@ public class MainActivity extends AppCompatActivity {
     return true;
   }
 
-  /**
-   * Controls what to do when item from inflater touched.
-   *
-   * @param item
-   * @return
-   */
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
@@ -62,12 +47,18 @@ public class MainActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  /** Ignore all back button presses. */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>
+   *
+   * <p>Ignores all back button presses.
+   */
   @Override
   public void onBackPressed() {}
 
   /**
-   * Run {@link NavigationActivity} as "worker"
+   * Run {@link NavigationActivity} as "worker".
    *
    * @param view
    */
@@ -77,25 +68,13 @@ public class MainActivity extends AppCompatActivity {
   }
 
   /**
-   * Run {@link NavigationActivity} as "supervisor"
+   * Run {@link NavigationActivity} as "supervisor".
    *
    * @param view
    */
   public void launchAsSupervisor(View view) {
     if (!isNetworkFunctioning()) return;
     this.launch("supervisor");
-  }
-
-  private boolean isNetworkFunctioning() {
-    if (!isConnectionActive()) {
-      makeToast(getString(R.string.error_network));
-      return false;
-    }
-    if (!isIpAddressSet()) {
-      makeToast(getString(R.string.error_ip_address));
-      return false;
-    }
-    return true;
   }
 
   /**
@@ -109,10 +88,23 @@ public class MainActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
-  /** Makes a toast pop up saying that there is not network connection. */
-  private void makeToast(String message) {
-    Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-    toast.show();
+  /**
+   * Checks whether network status. Calls {@link #isConnectionActive()} (to check for active network
+   * connection) and {@link #isIpAddressSet()} (to check whether the server IP address was set in
+   * the preferences);
+   *
+   * @return true if no network problem else returns false
+   */
+  private boolean isNetworkFunctioning() {
+    if (!isConnectionActive()) {
+      makeToast(getString(R.string.error_network));
+      return false;
+    }
+    if (!isIpAddressSet()) {
+      makeToast(getString(R.string.error_ip_address));
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -138,5 +130,11 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
     String ipAddress = prefs.getString(getString(R.string.pref_ip_key), null);
     return ipAddress != null;
+  }
+
+  /** Makes a toast pop up saying that there is not network connection. */
+  private void makeToast(String message) {
+    Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+    toast.show();
   }
 }

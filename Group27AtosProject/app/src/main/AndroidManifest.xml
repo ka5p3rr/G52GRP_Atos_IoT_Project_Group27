@@ -16,24 +16,24 @@
         tools:ignore="GoogleAppIndexingWarning"
         android:allowBackup="false">
         <activity
-            android:name=".NavigationActivity"
+            android:name=".main.NavigationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="uk.ac.nottingham.group27atosproject.MainActivity" />
+                android:value="uk.ac.nottingham.group27atosproject.main.MainActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".main.SettingsActivity"
             android:label="@string/action_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".main.MainActivity">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".main.MainActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
