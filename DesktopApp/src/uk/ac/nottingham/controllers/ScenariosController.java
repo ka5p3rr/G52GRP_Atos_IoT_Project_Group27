@@ -6,21 +6,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.text.Text;
 import uk.ac.nottingham.main.Main;
+import uk.ac.nottingham.main.MyProcessorThread;
 import uk.ac.nottingham.server.Connection;
 
 import java.io.IOException;
 
-/**
- * Controller for the Scenarios screen. IT WILL IMPLEMENT MORE FUNCTIONALITY LATER RIGHT NOW ONLY
- * RUN / RESUME BUTTON CHANGES COLOURS
- */
+/** Controller for the Scenarios screen. */
 public class ScenariosController {
-  /** Run button in Scenarios scene */
+  /** Run button in Scenarios scene. */
   public Button runButton;
-
+  /** Text showing currently selected scenario. */
   public Text selectedScenarioText;
+  /** Timeline slider. */
+  public Slider MainSlider;
+
+  private MyProcessorThread thread;
 
   public void initialize() {
     changeToScenarioOne();
@@ -49,12 +52,24 @@ public class ScenariosController {
   public void runButton(ActionEvent event) {
     String string = event.getSource().toString();
     if (string.contains("RUN")) {
-      runButton.setStyle("-fx-background-color: Orange;");
-      runButton.setText("RESUME");
+      setRun();
     } else {
-      runButton.setStyle("-fx-background-color: Green;");
-      runButton.setText("RUN");
+      setPause();
     }
+  }
+
+  private void setRun() {
+    runButton.setStyle("-fx-background-color: Orange;");
+    runButton.setText("PAUSE");
+
+    thread = new MyProcessorThread(this, MainSlider);
+    thread.start();
+  }
+
+  public void setPause() {
+    thread.cancel();
+    runButton.setStyle("-fx-background-color: Green;");
+    runButton.setText("RUN");
   }
 
   @FXML

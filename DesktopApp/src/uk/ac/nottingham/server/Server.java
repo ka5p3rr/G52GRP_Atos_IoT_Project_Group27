@@ -52,16 +52,16 @@ public class Server extends Thread {
           continue;
         }
 
-        for (InterfaceAddress addr : nic.getInterfaceAddresses()) {
-          final InetAddress inet_addr = addr.getAddress();
+        for (InterfaceAddress interfaceAddress : nic.getInterfaceAddresses()) {
+          final InetAddress inetAddress = interfaceAddress.getAddress();
 
-          if (!(inet_addr instanceof Inet4Address)) {
+          if (!(inetAddress instanceof Inet4Address)) {
             continue;
           }
 
           connectionInformation.append(nic.getDisplayName()).append("\n");
           connectionInformation.append("\tName:    ").append(nic.getName()).append("\n");
-          connectionInformation.append("\tAddress: ").append(inet_addr.getHostAddress());
+          connectionInformation.append("\tAddress: ").append(inetAddress.getHostAddress());
         }
       }
     } catch (IOException e) {

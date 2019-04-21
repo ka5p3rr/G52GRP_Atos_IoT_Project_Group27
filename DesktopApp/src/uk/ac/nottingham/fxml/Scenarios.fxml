@@ -93,8 +93,9 @@
                 <GridPane alignment="CENTER" style="-fx-background-color: #18194F;"
                           GridPane.rowIndex="2">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="80.0"/>
                         <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0"
+                                           prefWidth="200.0"/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints vgrow="SOMETIMES"/>
@@ -109,10 +110,13 @@
                             <font>
                                 <Font name="System Bold" size="20.0"/>
                             </font>
+                            <GridPane.margin>
+                                <Insets right="50.0"/>
+                            </GridPane.margin>
                         </Button>
-                        <Slider blockIncrement="1.0" focusTraversable="false" majorTickUnit="1.0"
-                                max="24.0" minorTickCount="0" showTickLabels="true"
-                                showTickMarks="true" snapToTicks="true"
+                        <Slider fx:id="MainSlider" blockIncrement="1.0" focusTraversable="false"
+                                majorTickUnit="1.0" max="24.0" minorTickCount="0"
+                                showTickLabels="true" showTickMarks="true" snapToTicks="true"
                                 stylesheets="@../resources/stylesheet.css"
                                 GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                             <styleClass>

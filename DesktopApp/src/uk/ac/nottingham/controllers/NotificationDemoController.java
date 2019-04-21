@@ -45,16 +45,21 @@ public class NotificationDemoController {
     String eventString = ((Button) event.getSource()).getText();
     String data;
 
-    if (eventString.equals("0%")) {
-      data = "demo,0";
-    } else if (eventString.equals("50%")) {
-      data = "demo,50";
-    } else if (eventString.equals("70%")) {
-      data = "demo,70";
-    } else if (eventString.equals("90%")) {
-      data = "demo,90";
-    } else {
-      return;
+    switch (eventString) {
+      case "0%":
+        data = "demo,0";
+        break;
+      case "50%":
+        data = "demo,50";
+        break;
+      case "70%":
+        data = "demo,70";
+        break;
+      case "90%":
+        data = "demo,90";
+        break;
+      default:
+        return;
     }
     Connection.setData(data);
 
