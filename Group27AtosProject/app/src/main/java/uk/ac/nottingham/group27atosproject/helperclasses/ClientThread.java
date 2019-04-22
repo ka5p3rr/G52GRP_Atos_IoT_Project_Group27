@@ -130,20 +130,37 @@ public class ClientThread extends Thread {
       if (data.contains(navigationActivity.getString(R.string.default_data))) {
         NotificationManager.cancelNotification(navigationActivity);
         previousValue = 0;
-      } else if (data.contains("demo")) {
+      } else if (data.contains("notification")) {
         String[] values = data.split(",");
 
         if (values.length >= 2) {
           int i = Integer.parseInt(values[1]);
           if (i > previousValue) {
             NotificationManager.createNotification("Tank capacity " + i + "%", navigationActivity);
-          }
-          if (i < previousValue) {
+          } else if (i < previousValue) {
             NotificationManager.cancelNotification(navigationActivity);
           }
           previousValue = i;
 
           data = "Tank capacity " + i + "%";
+        }
+      } else if (data.contains("demo")) {
+        String[] values = data.split(",");
+
+        if (values.length >= 2) {
+          int i = Integer.parseInt(values[1]);
+          data = "Tank capacity " + i + "%";
+
+          int converted = (i / 10) * 10;
+
+          if (converted > previousValue) {
+            NotificationManager.createNotification(
+                "Tank capacity " + converted + "%", navigationActivity);
+          } else if (converted < previousValue) {
+            NotificationManager.cancelNotification(navigationActivity);
+          }
+
+          previousValue = converted;
         }
       }
 

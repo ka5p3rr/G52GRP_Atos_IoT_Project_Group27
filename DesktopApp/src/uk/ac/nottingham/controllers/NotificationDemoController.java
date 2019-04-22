@@ -47,16 +47,16 @@ public class NotificationDemoController {
 
     switch (eventString) {
       case "0%":
-        data = "demo,0";
+        data = "notification,0";
         break;
       case "50%":
-        data = "demo,50";
+        data = "notification,50";
         break;
       case "70%":
-        data = "demo,70";
+        data = "notification,70";
         break;
       case "90%":
-        data = "demo,90";
+        data = "notification,90";
         break;
       default:
         return;

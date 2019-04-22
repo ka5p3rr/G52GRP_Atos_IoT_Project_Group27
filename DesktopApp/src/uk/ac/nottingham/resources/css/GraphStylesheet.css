@@ -1,0 +1,18 @@
+.axis {
+    -fx-tick-label-fill: white;
+    -fx-tick-length: 10;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-padding: 10 10 10 10;
+}
+
+.chart-title {
+    -fx-text-fill: white;
+    -fx-padding: 10 0 10 0;
+}
+
+.chart-content {
+    -fx-padding: 0 50 0 50;
+}
