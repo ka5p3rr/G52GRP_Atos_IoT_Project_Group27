@@ -18,8 +18,8 @@ import uk.ac.nottingham.main.Notification;
 import uk.ac.nottingham.server.Connection;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /** Controller for the Scenarios screen. */
 public class ScenariosController {
@@ -37,6 +37,8 @@ public class ScenariosController {
   private StackedAreaChart<Number, Number> tankChart;
   private XYChart.Series<Number, Number> pipeSeries;
   private XYChart.Series<Number, Number> tankSeries;
+  private NumberAxis xPipeAxis;
+  private NumberAxis xTankAxis;
   private BufferedReader pipeReader;
   private BufferedReader tankReader;
   private boolean isFinished = false;
@@ -55,11 +57,8 @@ public class ScenariosController {
     }
 
     /* ********** PIPE CHART ********** */
-    NumberAxis xPipeAxis = GraphManager.getNewNumberAxis("Relative time");
-    xPipeAxis.setAutoRanging(false);
-    xPipeAxis.setLowerBound(0);
-    xPipeAxis.setUpperBound(100);
-    xPipeAxis.setTickUnit(5);
+    xPipeAxis = GraphManager.getTimeXAxis("Relative time");
+
     NumberAxis yPipeAxis = GraphManager.getNewNumberAxis("Water flow (m^3/s)");
     yPipeAxis.setTickLabelRotation(-90);
     pipeChart = GraphManager.getNewLineChart(xPipeAxis, yPipeAxis, "Pipe chart");
@@ -67,11 +66,8 @@ public class ScenariosController {
     pipeChart.getData().add(pipeSeries);
 
     /* ********** TANK CHART ********** */
-    NumberAxis xTankAxis = GraphManager.getNewNumberAxis("Relative time");
-    xTankAxis.setAutoRanging(false);
-    xTankAxis.setLowerBound(0);
-    xTankAxis.setUpperBound(100);
-    xTankAxis.setTickUnit(5);
+    xTankAxis = GraphManager.getTimeXAxis("Relative time");
+
     NumberAxis yTankAxis = GraphManager.getNewNumberAxis("Water level (m)");
     yTankAxis.setTickLabelRotation(-90);
     tankChart = GraphManager.getNewLineChart(xTankAxis, yTankAxis, "Tank chart");
@@ -94,6 +90,14 @@ public class ScenariosController {
   public void addValue(double pipeX, double pipeY, double tankX, double tankY) {
     pipeSeries.getData().add(new XYChart.Data<>(pipeX, pipeY));
     tankSeries.getData().add(new XYChart.Data<>(tankX, tankY));
+  }
+
+  public void resizePipeTimeXAxis(int upperBound) {
+    xPipeAxis.setUpperBound(upperBound);
+  }
+
+  public void resizeTankTimeAxis(int upperBound) {
+    xTankAxis.setUpperBound(upperBound);
   }
 
   /**
@@ -172,9 +176,13 @@ public class ScenariosController {
     if (pipeReader != null) pipeReader.close();
     if (tankReader != null) tankReader.close();
     pipeReader =
-        new BufferedReader(new FileReader("src\\uk\\ac\\nottingham\\resources\\MainPipe.csv"));
+        new BufferedReader(
+            new InputStreamReader(
+                getClass().getResourceAsStream("/uk/ac/nottingham/resources/MainPipe.csv")));
     tankReader =
-        new BufferedReader(new FileReader("src\\uk\\ac\\nottingham\\resources\\TankLevel.csv"));
+        new BufferedReader(
+            new InputStreamReader(
+                getClass().getResourceAsStream("/uk/ac/nottingham/resources/TankLevel.csv")));
   }
 
   /**

@@ -100,7 +100,7 @@ public class ClientThread extends Thread {
       try {
         Thread.sleep(1000);
       } catch (InterruptedException e) {
-        Log.e("INTERRUPTED", e.getMessage());
+        Log.e("INTERRUPTED", "" + e.getMessage());
       }
     }
   }
@@ -135,9 +135,12 @@ public class ClientThread extends Thread {
 
         if (values.length >= 2) {
           int i = Integer.parseInt(values[1]);
-          if (i > previousValue) {
-            NotificationManager.createNotification("Tank capacity " + i + "%", navigationActivity);
-          } else if (i < previousValue) {
+          if (i != 0) {
+            if (i != previousValue) {
+              NotificationManager.createNotification(
+                  "Tank capacity " + i + "%", navigationActivity);
+            }
+          } else {
             NotificationManager.cancelNotification(navigationActivity);
           }
           previousValue = i;
@@ -153,13 +156,24 @@ public class ClientThread extends Thread {
 
           int converted = (i / 10) * 10;
 
-          if (converted > previousValue) {
-            NotificationManager.createNotification(
-                "Tank capacity " + converted + "%", navigationActivity);
-          } else if (converted < previousValue) {
-            NotificationManager.cancelNotification(navigationActivity);
+          if (converted >= 90) {
+            converted = 90;
+          } else if (converted >= 70) {
+            converted = 70;
+          } else if (converted >= 50) {
+            converted = 50;
+          } else {
+            converted = 0;
           }
 
+          if (converted != 0) {
+            if (converted > previousValue) {
+              NotificationManager.createNotification(
+                  "Tank capacity " + converted + "%", navigationActivity);
+            }
+          } else {
+            NotificationManager.cancelNotification(navigationActivity);
+          }
           previousValue = converted;
         }
       }
@@ -167,11 +181,11 @@ public class ClientThread extends Thread {
       Log.i("RECEIVED", data);
 
     } catch (UnknownHostException e) {
-      Log.e("SOCKET", e.getMessage());
+      Log.e("SOCKET", "" + e.getMessage());
     } catch (EOFException e) {
-      Log.e("EOF", e.getMessage());
+      Log.e("EOF", "" + e.getMessage());
     } catch (IOException e) {
-      Log.e("IO", e.getMessage());
+      Log.e("IO", "" + e.getMessage());
     }
 
     // This piece of code is executed no matter what. Even when an Exception is thrown.
@@ -179,7 +193,7 @@ public class ClientThread extends Thread {
       try {
         clientSocket.close();
       } catch (IOException e) {
-        Log.e("CLOSE", e.getMessage());
+        Log.e("CLOSE", "" + e.getMessage());
       }
     }
 

@@ -21,6 +21,15 @@ public class GraphManager {
     return newAxis;
   }
 
+  public static NumberAxis getTimeXAxis(String label) {
+    NumberAxis newAxis = getNewNumberAxis(label);
+    newAxis.setAutoRanging(false);
+    newAxis.setLowerBound(0);
+    newAxis.setUpperBound(25);
+    newAxis.setTickUnit(5);
+    return newAxis;
+  }
+
   public static StackedAreaChart<Number, Number> getNewLineChart(
       NumberAxis x, NumberAxis y, String title) {
     StackedAreaChart<Number, Number> chart = new StackedAreaChart<>(x, y);
