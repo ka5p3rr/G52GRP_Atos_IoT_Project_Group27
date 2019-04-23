@@ -3,14 +3,15 @@
 ## Table of contents <!-- omit in toc -->
 
 - [1 Introduction](#1-introduction)
-    - [1.1 Git](#11-git)
+  - [1.1 Git](#11-git)
 - [2 GitKraken](#2-gitkraken)
-    - [2.1 Set up](#21-set-up)
-    - [2.2 Basics](#22-basics)
-    - [2.3 Branching](#23-branching)
+  - [2.1 Set up](#21-set-up)
+  - [2.2 Basics](#22-basics)
+  - [2.3 Branching](#23-branching)
 - [3 Git Branching Strategy](#3-git-branching-strategy)
-    - [3.1 Initial Strategy](#31-initial-strategy)
-    - [3.2 Advanced Strategy](#32-advanced-strategy)
+  - [3.1 Initial Strategy](#31-initial-strategy)
+  - [3.2 Advanced Strategy](#32-advanced-strategy)
+    - [Update](#update)
 
 ## 1 Introduction
 
@@ -80,7 +81,6 @@ GitKraken is really easy to use, in the middle you see a visual representation o
 4. Push
     - push will upload all your commits to our remote repository
 
-
 ### 2.3 Branching
 
 Another very useful feature of GitKraken is in the left panel, where you can see all the remote branches of the GitHub repository and also your local personal branches. There is also a functionality that allows us to create Pull Requests directly from GitKraken.
@@ -102,10 +102,27 @@ I think that the best strategy in the beginning is to have two branches:
 2. development
     - for development
 
-We will use the development branch for all our coding and implementation. The access to master branch will be restricted, so that the only way to update it will be through GitHub's Pull Request system. No direct merging or pushing is allowed. Pull Requests will always have all team members assigned as reviewers, who can comment on the request and decline or approve the changes. Only if it code passes our CI tests and is approved by all reviewers it can be merged to master.
+We will use the development branch for all our coding and implementation. The access to master branch will be restricted, so that the only way to update it will be through GitHub's Pull Request system. No direct merging or pushing is allowed. Pull Requests will always have all team members assigned as reviewers, who can comment on the request and decline or approve the changes. Only if it code passes our tests and is approved by all reviewers it can be merged to master.
 
 The reason for having our master locked is to make it as bug free as possible. Only tested, reviewed and working code will be available in the master branch.
 
 ### 3.2 Advanced Strategy
 
 Later we might use the little bit more complicated Branch for Feature strategy, where we maintain the development branch as a tested working system and from that we branch for individual features. When a feature is implemented and tested we merge back to development and test the whole system with the new feature added. When all tests done on the development branch we merge back to master and start the process over again.
+
+#### Update
+
+In the end we decided not use the Branch for Feature approach, because it didn't suit our project. We initially made the development branch as mentioned in [3.1 Initial Strategy](#31-initial-strategy). From development branch we created three other branches:
+
+1. AndroidAppDevelopment
+   - Used for initial development of the Android App.
+  
+> Note: this branch is not used anymore, because it was merged into the DesktopAppDevelopment branch. The Desktop App and Android App work together in one system, therefore we merged the branches and develop both on one.
+
+2. DesktopAppDevelopment
+   - Used for Android and Desktop App development.
+
+3. SimulationDevelopment
+   - Used for development of the Simulation.
+
+Those branches are being used for develepmont of each component as their naming suggests. Similarly, as explained in [3.2 Advanced Strategy](#32-advanced-strategy), when the system is implemented and tested we merge to the development branch. Once everything is approved we create a Pull Request to merge development to master.
