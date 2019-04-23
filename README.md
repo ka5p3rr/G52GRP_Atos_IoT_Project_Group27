@@ -38,6 +38,11 @@ Software Engineering Group Project (G52GRP) at the University of Nottingham.
   - The version used is 9.2 (part of [MATLAB](https://uk.mathworks.com/products/matlab.html) R2018b)
   - Libraries used: Simscapes Fluids, Open Thermal Liquid and Open Simscapes
 
+## Manuals
+
+- [User manual](https://drive.google.com/open?id=1USYHpqUBpTdu0IfFADciFe9qJLxFvj-w)
+- [Software manual](https://drive.google.com/open?id=1tdTCHWkzAz3ID6sf3yhR46w2c5PNLJ2H)
+
 ## Changelog
 
 Full changelog and progress monitoring is tracked on our [Trello](https://trello.com/atosproject).
