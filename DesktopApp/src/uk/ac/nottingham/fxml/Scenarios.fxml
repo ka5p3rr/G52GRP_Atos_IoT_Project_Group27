@@ -45,7 +45,7 @@
                                         focusTraversable="false" mnemonicParsing="false"
                                         onAction="#changeToScenarioOne"
                                         style="-fx-background-color: #D81B60;" text="Scenario 1"
-                                        textFill="WHITE">
+                                        textFill="WHITE" visible="false">
                                     <font>
                                         <Font name="System Bold" size="20.0"/>
                                     </font>
@@ -57,7 +57,7 @@
                                         focusTraversable="false" mnemonicParsing="false"
                                         onAction="#changeToScenarioTwo"
                                         style="-fx-background-color: #D81B60;" text="Scenario 2"
-                                        textFill="WHITE">
+                                        textFill="WHITE" visible="false">
                                     <font>
                                         <Font name="System Bold" size="20.0"/>
                                     </font>

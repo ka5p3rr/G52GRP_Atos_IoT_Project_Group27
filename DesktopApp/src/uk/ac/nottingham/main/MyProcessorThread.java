@@ -81,28 +81,29 @@ public class MyProcessorThread extends Thread {
           scenariosController.setPause();
           scenariosController.setFinished(true);
           Connection.resetData();
-          System.out.println("Data reading finished");
+          NotificationManager.show(NotificationManager.SIMULATION_FINISHED);
+          NotificationManager.playNotificationSound();
         });
   }
 
   private void resizeAxes(double pipeX, double tankX) {
-    if (pipeX > 25) {
+    if (pipeX == 25) {
       scenariosController.resizePipeTimeXAxis(50);
     }
-    if (pipeX > 50) {
+    if (pipeX == 50) {
       scenariosController.resizePipeTimeXAxis(75);
     }
-    if (pipeX > 75) {
+    if (pipeX == 75) {
       scenariosController.resizePipeTimeXAxis(100);
     }
 
-    if (tankX > 25) {
+    if (tankX == 25) {
       scenariosController.resizeTankTimeAxis(50);
     }
-    if (tankX > 50) {
+    if (tankX == 50) {
       scenariosController.resizeTankTimeAxis(75);
     }
-    if (tankX > 75) {
+    if (tankX == 75) {
       scenariosController.resizeTankTimeAxis(100);
     }
   }

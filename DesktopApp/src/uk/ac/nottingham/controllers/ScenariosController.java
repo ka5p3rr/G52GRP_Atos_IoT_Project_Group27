@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 import uk.ac.nottingham.main.GraphManager;
 import uk.ac.nottingham.main.Main;
 import uk.ac.nottingham.main.MyProcessorThread;
-import uk.ac.nottingham.main.Notification;
+import uk.ac.nottingham.main.NotificationManager;
 import uk.ac.nottingham.server.Connection;
 
 import java.io.BufferedReader;
@@ -119,7 +119,7 @@ public class ScenariosController {
   public void changeToScenarioOne() {
     // return if thread is running
     if (thread != null) {
-      Notification.show(Notification.RUNNING_SIMULATION);
+      NotificationManager.show(NotificationManager.SIMULATION_RUNNING_ERROR);
       return;
     }
 
@@ -135,7 +135,7 @@ public class ScenariosController {
   public void changeToScenarioTwo() {
     // return if thread is running
     if (thread != null) {
-      Notification.show(Notification.RUNNING_SIMULATION);
+      NotificationManager.show(NotificationManager.SIMULATION_RUNNING_ERROR);
       return;
     }
     selectedScenarioText.setText("2");

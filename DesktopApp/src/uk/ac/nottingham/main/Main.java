@@ -77,7 +77,9 @@ public class Main extends Application {
       primaryStage.setMinWidth(1280);
       primaryStage.setMinHeight(720);
       primaryStage.centerOnScreen();
-      primaryStage.setMaximized(true);
+      if (launchFullscreen) {
+        primaryStage.setMaximized(true);
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
