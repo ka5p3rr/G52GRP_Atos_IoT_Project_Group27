@@ -13,7 +13,9 @@ import android.support.v4.app.NotificationCompat;
 import uk.ac.nottingham.group27atosproject.R;
 
 public class NotificationManager {
-  private static final int NOTIFICATION_ID = 1; // a unique int for each notification
+  /** Unique int for each notification */
+  private static final int NOTIFICATION_ID = 1;
+  /** Channel ID. */
   private static final String CHANNEL_ID = "100";
 
   /** Private constructor to ensure that this class can't be instantiated. */
@@ -40,6 +42,7 @@ public class NotificationManager {
       notificationManager.createNotificationChannel(channel);
     }
 
+    // intent to be launched on notification click - currently creates an empty intent
     PendingIntent contentIntent =
         PendingIntent.getActivity(context, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
 

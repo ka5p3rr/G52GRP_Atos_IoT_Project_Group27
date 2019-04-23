@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
+    // opens up setting context menu
     MenuInflater menuInflater = getMenuInflater();
     menuInflater.inflate(R.menu.settings_menu, menu);
     return true;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
+    // open the settings activity
     int id = item.getItemId();
     if (id == R.id.action_settings) {
       Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
    */
   private void launch(String userSelected) {
     Intent intent = new Intent(this, NavigationActivity.class);
-    intent.putExtra(EXTRA_MESSAGE, userSelected);
+    intent.putExtra(EXTRA_MESSAGE, userSelected); // send over a mesage
     startActivity(intent);
   }
 

@@ -7,14 +7,17 @@ import java.net.Socket;
 
 /** Takes care of each connection to the Server as a new thread. */
 public class Connection extends Thread {
+  /** {@link DataInputStream} to reactive data from server. */
   private DataInputStream in;
+  /** {@link DataOutputStream} to send data to server. */
   private DataOutputStream out;
+  /** Client socket. */
   private Socket clientSocket;
   /** This is send back to the client. */
   private static String data = "N\\A";
 
   /**
-   * Constructor
+   * Constructor. Initializes the data streams.
    *
    * @param aClientSocket socket to use for each connection
    */
@@ -28,14 +31,17 @@ public class Connection extends Thread {
     }
   }
 
-  /** Executes this class thread. Reads from the input data from socket and sends back the data. */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Executes this class thread. Reads from the input data from socket and sends back the data.
+   */
+  @Override
   public void run() {
     try {
-      // always needs to read the input stream
-      System.out.println("Received: " + in.readUTF());
-      // here do processing for what to sent to clients¬
-      System.out.println("Responded: " + data);
-      out.writeUTF(data);
+      System.out.println("Received: " + in.readUTF()); // always needs to read the input stream
+      System.out.println("Responded: " + data); // here do processing for what to sent to clients
+      out.writeUTF(data); // send data
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -68,6 +74,7 @@ public class Connection extends Thread {
     Connection.data = data;
   }
 
+  /** Reset data to default N\A. */
   public static void resetData() {
     Connection.data = "N\\A";
   }

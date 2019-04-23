@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 import uk.ac.nottingham.group27atosproject.R;
 
-/** A simple {@link Fragment} subclass. */
+/** A simple {@link Fragment} subclass. It manages the preference screen / settings activity. */
 public class SettingsFragment extends PreferenceFragmentCompat
     implements Preference.OnPreferenceChangeListener {
 
@@ -20,13 +20,17 @@ public class SettingsFragment extends PreferenceFragmentCompat
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     addPreferencesFromResource(R.xml.settings_pref);
 
+    // load the preference
     final EditTextPreference editTextPreference =
         (EditTextPreference) getPreferenceScreen().findPreference(getString(R.string.pref_ip_key));
-
+    // get the IP
     String ipAddress = editTextPreference.getText();
-
-    if (ipAddress == null) editTextPreference.setSummary("Currently not set");
-    else setIpPreferenceSummary(editTextPreference, ipAddress);
+    // set the IP to the preference summary
+    if (ipAddress == null) {
+      editTextPreference.setSummary("Currently not set");
+    } else {
+      setIpPreferenceSummary(editTextPreference, ipAddress);
+    }
 
     editTextPreference.setOnPreferenceChangeListener(this);
   }

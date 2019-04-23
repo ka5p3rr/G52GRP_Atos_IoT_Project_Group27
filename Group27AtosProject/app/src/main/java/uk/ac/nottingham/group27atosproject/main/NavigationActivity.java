@@ -19,6 +19,10 @@ import uk.ac.nottingham.group27atosproject.R;
 import uk.ac.nottingham.group27atosproject.helperclasses.ClientThread;
 import uk.ac.nottingham.group27atosproject.helperclasses.NotificationManager;
 
+/**
+ * Main app class. Contains a navigation drawer menu that lets the user see who is logged in and
+ * sign out.
+ */
 public class NavigationActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
   /** Thread running the TCP IP client */
@@ -43,6 +47,7 @@ public class NavigationActivity extends AppCompatActivity
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
+    // create the toggle button for menu drawer
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle =
         new ActionBarDrawerToggle(

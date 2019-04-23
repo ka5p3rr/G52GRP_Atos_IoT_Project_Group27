@@ -27,7 +27,7 @@ public class Main extends Application {
   private static boolean launchFullscreen = false;
 
   /**
-   * Set the properties of the WelcomeScreen {@link Scene}. it is provided as a public static method
+   * Set the properties of the WelcomeScreen {@link Scene}. It is provided as a public static method
    * so other classes can go back to this screen. It adds an EventFilter to the scene for quick
    * full-screen toggle using the CTRL-F shortcut.
    *
@@ -36,6 +36,7 @@ public class Main extends Application {
    */
   public static Scene initWelcomeScreenScene(Parent root) {
     Scene scene = new Scene(root);
+    // adding event filter to enable pressing the shortcut
     scene.addEventFilter(
         KeyEvent.KEY_RELEASED,
         event -> {
@@ -49,7 +50,9 @@ public class Main extends Application {
   }
 
   /**
-   * Starts the the application by setting the properties of the current {@link Stage}. Also sets
+   * {@inheritDoc}
+   *
+   * <p>Starts the the application by setting the properties of the current {@link Stage}. Also sets
    * the first {@link Scene}.
    *
    * @param primaryStage main {@link Stage} of the application
@@ -57,8 +60,8 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     if (Server.getInstance() == null) {
-      makeNoNetworkAlert();
-      return;
+      makeNoNetworkAlert(); // create alert
+      return; // just return - no network connection means no reason to run the app
     }
 
     stage = primaryStage;
@@ -66,9 +69,9 @@ public class Main extends Application {
     try {
       Parent root =
           FXMLLoader.load(getClass().getResource("/uk/ac/nottingham/fxml/WelcomeScreen.fxml"));
-      primaryStage.setScene(initWelcomeScreenScene(root));
+      primaryStage.setScene(initWelcomeScreenScene(root)); // set the initial scene - welcome screen
       if (launchFullscreen && primaryStage.getStyle() != StageStyle.UNDECORATED) {
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.UNDECORATED); // set the style for full screen mode
       }
       // set all properties
       primaryStage.setTitle("Group 27");
@@ -78,20 +81,29 @@ public class Main extends Application {
       primaryStage.setMinHeight(720);
       primaryStage.centerOnScreen();
       if (launchFullscreen) {
-        primaryStage.setMaximized(true);
+        primaryStage.setMaximized(true); // maximize for full screen mode
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  /** Stops the Server when the fxml Application exits. */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Stops the Server when the fxml Application exits.
+   */
   @Override
   public void stop() {
     Server server = Server.getInstance();
-    if (server != null) server.stopServer();
+    if (server != null) {
+      server.stopServer();
+    }
   }
 
+  /**
+   * Creates an {@link Alert} pop up informing the user that there is no active network connection.
+   */
   private void makeNoNetworkAlert() {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Connection error");
@@ -106,9 +118,11 @@ public class Main extends Application {
    * @param args the primary {@link Stage} of the application
    */
   public static void main(String[] args) {
-    // start the server
+    // create new server
     Server server = Server.getInstance();
+    // server can be null
     if (server != null) {
+      // start the server
       server.start();
     }
 

@@ -12,21 +12,33 @@ import uk.ac.nottingham.server.Connection;
 
 import java.io.IOException;
 
+/**
+ * FXML controller for the NotificationDemo.fxml file. It has several functions that are executed on
+ * a button press. Allows user to go back to welcome screen or test the notification system on the
+ * accompanying android app.
+ */
 public class NotificationDemoController {
-  public Text currentlySetText;
+  /** Text with the currently set tank percentage, which is sent over to android devices. */
+  @FXML private Text currentlySetText;
 
-  public void initialize() {
+  /**
+   * Called once on an implementing controller when the contents of its associated document have
+   * been completely loaded.
+   */
+  @FXML
+  private void initialize() {
     // get the current percentage and show it on screen
     currentlySetText.setText("Currently set to: " + Connection.getData());
   }
 
   /**
-   * Reloads the Welcome Screen fxml scene.
+   * Reloads the WelcomeScreen.fxml file and sets the scene on the current {@link
+   * javafx.stage.Stage}. Also resets the server data.
    *
    * @throws IOException when the fxml file can't be loaded
    */
   @FXML
-  public void returnToWelcomeScreen() throws IOException {
+  private void returnToWelcomeScreen() throws IOException {
     Parent root =
         FXMLLoader.load(getClass().getResource("/uk/ac/nottingham/fxml/WelcomeScreen.fxml"));
     Scene scene = Main.initWelcomeScreenScene(root);
@@ -41,11 +53,11 @@ public class NotificationDemoController {
    * @param event on click button event
    */
   @FXML
-  public void notificationDemo(ActionEvent event) {
+  private void notificationDemo(ActionEvent event) {
     String eventString = ((Button) event.getSource()).getText();
     String data;
 
-    switch (eventString) {
+    switch (eventString) { // check what button was pressed
       case "0%":
         data = "notification,0";
         break;
@@ -61,7 +73,7 @@ public class NotificationDemoController {
       default:
         return;
     }
-    Connection.setData(data);
+    Connection.setData(data); // set the server data
 
     String[] values = data.split(",");
     if (values.length >= 2) {
@@ -69,6 +81,6 @@ public class NotificationDemoController {
       data = i + "%";
     }
 
-    currentlySetText.setText("Currently set to: " + data);
+    currentlySetText.setText("Currently set to: " + data); // update the UI
   }
 }

@@ -9,7 +9,9 @@ import java.util.Enumeration;
  * class.
  */
 public class Server extends Thread {
+  /** Port number of the server. */
   private static final int SERVER_PORT_NUMBER = 7896;
+  /** {@link Server} used to implement singleton. */
   private static Server server = null;
 
   /**
@@ -58,7 +60,7 @@ public class Server extends Thread {
           if (!(inetAddress instanceof Inet4Address)) {
             continue;
           }
-
+          // print the information on screen
           connectionInformation.append(nic.getDisplayName()).append("\n");
           connectionInformation.append("\tName:    ").append(nic.getName()).append("\n");
           connectionInformation.append("\tAddress: ").append(inetAddress.getHostAddress());

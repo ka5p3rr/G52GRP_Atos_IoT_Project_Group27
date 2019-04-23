@@ -23,7 +23,9 @@ import uk.ac.nottingham.group27atosproject.main.NavigationActivity;
  * {@link Handler}.
  */
 public class ClientThread extends Thread {
+  /** {@link Boolean} used to kill this thread. */
   private Boolean keepRunning = true;
+  /** {@link Handler} updating the UI. */
   private Handler UIHandler;
   /** Server IP address (IPv4) */
   private String ipAddress;
@@ -38,11 +40,12 @@ public class ClientThread extends Thread {
    * {@link Handler}.
    */
   private TextView textView;
-
+  /** Data to be sent to the server. */
   private String messageToServer;
 
   /**
-   * Constructor.
+   * Constructor. Sets all member variables. Also loads the IP address preference using the {@link
+   * PreferenceManager}.
    *
    * @param UIHandler needs a {@link Handler} to change the UI from a worker thread
    * @param navigationActivity {@link NavigationActivity}
@@ -84,7 +87,7 @@ public class ClientThread extends Thread {
             public void run() {
 
               if (data == null) {
-                navigationActivity.goToMainActivity();
+                navigationActivity.goToMainActivity(); // return to log in screen
                 Toast toast =
                     Toast.makeText(
                         navigationActivity,
@@ -98,7 +101,7 @@ public class ClientThread extends Thread {
           });
 
       try {
-        Thread.sleep(1000);
+        Thread.sleep(1000); // wait for one second before retrieving another value
       } catch (InterruptedException e) {
         Log.e("INTERRUPTED", "" + e.getMessage());
       }
@@ -116,6 +119,7 @@ public class ClientThread extends Thread {
     String data = null;
 
     try {
+      // connect the socket - set timeout to 1 second
       clientSocket.connect(new InetSocketAddress(ipAddress, PORT_NUMBER), 1000);
 
       DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
@@ -127,6 +131,7 @@ public class ClientThread extends Thread {
       // receive from server
       data = in.readUTF();
 
+      /* ***** DATA PARSING FROM SERVER ***** */
       if (data.contains(navigationActivity.getString(R.string.default_data))) {
         NotificationManager.cancelNotification(navigationActivity);
         previousValue = 0;
