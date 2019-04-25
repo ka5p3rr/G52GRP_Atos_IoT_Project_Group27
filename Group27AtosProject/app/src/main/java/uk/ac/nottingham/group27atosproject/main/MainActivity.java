@@ -119,7 +119,11 @@ public class MainActivity extends AppCompatActivity {
     ConnectivityManager connManager =
         (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
-    return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    if (activeNetwork == null) return false;
+    boolean isWifiOrEthernet =
+        activeNetwork.getType() == ConnectivityManager.TYPE_WIFI
+            || activeNetwork.getType() == ConnectivityManager.TYPE_ETHERNET;
+    return isWifiOrEthernet && activeNetwork.isConnectedOrConnecting();
   }
 
   /**
