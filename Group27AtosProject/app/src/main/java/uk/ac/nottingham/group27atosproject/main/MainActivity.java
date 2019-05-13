@@ -1,10 +1,7 @@
 package uk.ac.nottingham.group27atosproject.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
    * @param view
    */
   public void launchAsWorker(View view) {
-    if (!isNetworkFunctioning()) return;
+    if (!isIpAddressSet()) return;
     this.launch("worker");
   }
 
@@ -75,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
    * @param view
    */
   public void launchAsSupervisor(View view) {
-    if (!isNetworkFunctioning()) return;
+    if (!isIpAddressSet()) return;
     this.launch("supervisor");
   }
 
@@ -91,42 +88,6 @@ public class MainActivity extends AppCompatActivity {
   }
 
   /**
-   * Checks whether network status. Calls {@link #isConnectionActive()} (to check for active network
-   * connection) and {@link #isIpAddressSet()} (to check whether the server IP address was set in
-   * the preferences);
-   *
-   * @return true if no network problem else returns false
-   */
-  private boolean isNetworkFunctioning() {
-    if (!isConnectionActive()) {
-      makeToast(getString(R.string.error_network));
-      return false;
-    }
-    if (!isIpAddressSet()) {
-      makeToast(getString(R.string.error_ip_address));
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   * Checks whether the device is connected to a network. Returns if there is an active network
-   * connection. Returns false when no network found.
-   *
-   * @return true - exits active connection, false - no connection
-   */
-  private boolean isConnectionActive() {
-    ConnectivityManager connManager =
-        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
-    if (activeNetwork == null) return false;
-    boolean isWifiOrEthernet =
-        activeNetwork.getType() == ConnectivityManager.TYPE_WIFI
-            || activeNetwork.getType() == ConnectivityManager.TYPE_ETHERNET;
-    return isWifiOrEthernet && activeNetwork.isConnectedOrConnecting();
-  }
-
-  /**
    * Checks whether the IP address has been set in the preferences. If not returns false, if yes
    * returns true.
    *
@@ -135,7 +96,12 @@ public class MainActivity extends AppCompatActivity {
   private boolean isIpAddressSet() {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
     String ipAddress = prefs.getString(getString(R.string.pref_ip_key), null);
-    return ipAddress != null;
+    if (ipAddress == null) {
+      makeToast(getString(R.string.error_ip_address));
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /** Makes a toast pop up saying that there is not network connection. */

@@ -42,6 +42,8 @@ public class ClientThread extends Thread {
   private TextView textView;
   /** Data to be sent to the server. */
   private String messageToServer;
+  /** With each network failure it is incremented. */
+  private static int numberOfFailures = 0;
 
   /**
    * Constructor. Sets all member variables. Also loads the IP address preference using the {@link
@@ -68,7 +70,7 @@ public class ClientThread extends Thread {
   }
 
   /**
-   * * {@inheritDoc}
+   * {@inheritDoc}
    *
    * <p>
    *
@@ -87,21 +89,25 @@ public class ClientThread extends Thread {
             public void run() {
 
               if (data == null) {
-                navigationActivity.goToMainActivity(); // return to log in screen
-                Toast toast =
-                    Toast.makeText(
-                        navigationActivity,
-                        navigationActivity.getString(R.string.error_server),
-                        Toast.LENGTH_SHORT);
-                toast.show();
+                numberOfFailures++;
+                if (numberOfFailures == 10) {
+                  navigationActivity.goToMainActivity(); // return to log in screen
+                  Toast toast =
+                      Toast.makeText(
+                          navigationActivity,
+                          navigationActivity.getString(R.string.error_server),
+                          Toast.LENGTH_SHORT);
+                  toast.show();
+                }
+              } else {
+                numberOfFailures = 0;
+                textView.setText(data);
               }
-
-              textView.setText(data);
             }
           });
 
       try {
-        Thread.sleep(1000); // wait for one second before retrieving another value
+        Thread.sleep(250); // wait for one second before retrieving another value
       } catch (InterruptedException e) {
         Log.e("INTERRUPTED", "" + e.getMessage());
       }

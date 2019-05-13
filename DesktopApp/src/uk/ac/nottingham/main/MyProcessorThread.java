@@ -8,6 +8,7 @@ import uk.ac.nottingham.server.Connection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 /** Processing the files. Updates the UI with loaded values. */
 public class MyProcessorThread extends Thread {
@@ -22,6 +23,8 @@ public class MyProcessorThread extends Thread {
   /** Tank capacity {@link Text} to be changed. */
   private Text tankText;
 
+  private Text currentValueText;
+
   /**
    * Constructor. Sets all member variables.
    *
@@ -34,12 +37,14 @@ public class MyProcessorThread extends Thread {
       ScenariosController scenariosController,
       BufferedReader pipeReader,
       BufferedReader tankReader,
-      Text tankText) {
+      Text tankText,
+      Text currentValueText) {
     keepRunning = true;
     this.scenariosController = scenariosController;
     this.pipeReader = pipeReader;
     this.tankReader = tankReader;
     this.tankText = tankText;
+    this.currentValueText = currentValueText;
   }
 
   /**
@@ -83,11 +88,14 @@ public class MyProcessorThread extends Thread {
       Platform.runLater( // runs on the UI thread
           () -> {
             tankText.setText((int) percentage + "%");
+            DecimalFormat df = new DecimalFormat("0.00");
+            currentValueText.setText(
+                "Pipe: \t" + df.format(pipeY) + " m^3/s\n" + "Tank: \t" + df.format(tankY) + " m");
             scenariosController.addValue(pipeX, pipeY, tankX, tankY);
           });
 
       try {
-        Thread.sleep(40); // sleep for 40 ms
+        Thread.sleep(20); // sleep for 40 ms
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
@@ -110,24 +118,42 @@ public class MyProcessorThread extends Thread {
    * @param tankX current Y axis value
    */
   private void resizeAxes(double pipeX, double tankX) {
-    if (pipeX == 25) {
-      scenariosController.resizePipeTimeAxis(50);
-    }
     if (pipeX == 50) {
-      scenariosController.resizePipeTimeAxis(75);
-    }
-    if (pipeX == 75) {
       scenariosController.resizePipeTimeAxis(100);
     }
+    if (pipeX == 100) {
+      scenariosController.resizePipeTimeAxis(150);
+    }
+    if (pipeX == 150) {
+      scenariosController.resizePipeTimeAxis(200);
+    }
+    if (pipeX == 200) {
+      scenariosController.resizePipeTimeAxis(250);
+    }
+    if (pipeX == 250) {
+      scenariosController.resizePipeTimeAxis(300);
+    }
+    if (pipeX == 300) {
+      scenariosController.resizePipeTimeAxis(350);
+    }
 
-    if (tankX == 25) {
-      scenariosController.resizeTankTimeAxis(50);
-    }
     if (tankX == 50) {
-      scenariosController.resizeTankTimeAxis(75);
-    }
-    if (tankX == 75) {
       scenariosController.resizeTankTimeAxis(100);
+    }
+    if (tankX == 100) {
+      scenariosController.resizeTankTimeAxis(150);
+    }
+    if (tankX == 150) {
+      scenariosController.resizeTankTimeAxis(200);
+    }
+    if (tankX == 200) {
+      scenariosController.resizeTankTimeAxis(250);
+    }
+    if (tankX == 250) {
+      scenariosController.resizeTankTimeAxis(300);
+    }
+    if (tankX == 300) {
+      scenariosController.resizeTankTimeAxis(350);
     }
   }
 

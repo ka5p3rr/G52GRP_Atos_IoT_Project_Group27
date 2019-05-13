@@ -70,7 +70,8 @@
                         <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                             <children>
                                 <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
-                                      text="Currently selected scenario:" textAlignment="CENTER">
+                                      text="Currently selected scenario:" textAlignment="CENTER"
+                                      visible="false">
                                     <font>
                                         <Font size="30.0"/>
                                     </font>
@@ -80,7 +81,7 @@
                                 </Text>
                                 <Text fx:id="selectedScenarioText" fill="YELLOW"
                                       strokeType="OUTSIDE" strokeWidth="0.0" text="1"
-                                      textAlignment="CENTER">
+                                      textAlignment="CENTER" visible="false">
                                     <font>
                                         <Font name="System Bold" size="30.0"/>
                                     </font>
@@ -129,11 +130,29 @@
                                     <font>
                                         <Font size="30.0"/>
                                     </font>
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
                                 </Text>
                                 <Text fx:id="tankText" fill="WHITE" strokeType="OUTSIDE"
                                       strokeWidth="0.0" text="TANK">
                                     <font>
                                         <Font size="60.0"/>
+                                    </font>
+                                </Text>
+                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="CURRENT VALUES">
+                                    <font>
+                                        <Font size="30.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets top="50.0"/>
+                                    </VBox.margin>
+                                </Text>
+                                <Text fx:id="currentValueText" fill="WHITE" strokeType="OUTSIDE"
+                                      strokeWidth="0.0">
+                                    <font>
+                                        <Font size="20.0"/>
                                     </font>
                                 </Text>
                             </children>

@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
  * simulation.
  */
 public class ScenariosController {
+  @FXML private Text currentValueText;
   /** Run button in Scenarios scene. */
   @FXML private Button runButton;
   /** Text showing currently selected scenario. */
@@ -64,6 +65,7 @@ public class ScenariosController {
   @FXML
   private void initialize() {
     tankText.setText("0%");
+    currentValueText.setText("Pipe: \t0.00 m^3/s\n" + "Tank: \t0.00 m");
     changeToScenarioOne(); // set the default scenario
     initializeCharts(); // initialize charts on the screen
   }
@@ -192,7 +194,7 @@ public class ScenariosController {
       isFinished = false;
     }
 
-    thread = new MyProcessorThread(this, pipeReader, tankReader, tankText);
+    thread = new MyProcessorThread(this, pipeReader, tankReader, tankText, currentValueText);
     thread.start(); // start running the processor thread
   }
 

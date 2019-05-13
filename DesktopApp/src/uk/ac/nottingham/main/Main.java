@@ -74,7 +74,7 @@ public class Main extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED); // set the style for full screen mode
       }
       // set all properties
-      primaryStage.setTitle("Group 27");
+      primaryStage.setTitle("H2GO by GROUP 27");
       primaryStage.getIcons().add(new Image("/uk/ac/nottingham/resources/icon.png"));
       primaryStage.show();
       primaryStage.setMinWidth(1280);
