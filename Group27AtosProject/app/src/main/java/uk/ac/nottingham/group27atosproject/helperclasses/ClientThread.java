@@ -107,7 +107,7 @@ public class ClientThread extends Thread {
           });
 
       try {
-        Thread.sleep(250); // wait for one second before retrieving another value
+        if (data != null) Thread.sleep(250); // wait for one second before retrieving another value
       } catch (InterruptedException e) {
         Log.e("INTERRUPTED", "" + e.getMessage());
       }

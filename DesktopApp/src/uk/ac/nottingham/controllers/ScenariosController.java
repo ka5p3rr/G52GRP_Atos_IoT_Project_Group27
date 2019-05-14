@@ -11,11 +11,13 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import uk.ac.nottingham.main.Main;
 import uk.ac.nottingham.main.MyProcessorThread;
 import uk.ac.nottingham.managers.GraphManager;
 import uk.ac.nottingham.managers.NotificationManager;
 import uk.ac.nottingham.server.Connection;
+import uk.ac.nottingham.server.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -68,6 +70,7 @@ public class ScenariosController {
     currentValueText.setText("Pipe: \t0.00 m^3/s\n" + "Tank: \t0.00 m");
     changeToScenarioOne(); // set the default scenario
     initializeCharts(); // initialize charts on the screen
+    Connection.resetData();
   }
 
   /**
@@ -242,6 +245,23 @@ public class ScenariosController {
         FXMLLoader.load(getClass().getResource("/uk/ac/nottingham/fxml/WelcomeScreen.fxml"));
     Scene scene = Main.initWelcomeScreenScene(root);
     Main.getStage().setScene(scene); // set and load the new scene
+  }
+
+  /**
+   * Method called by clicking the Scenarios button, which launches the respective screen.
+   *
+   * @throws IOException when the fxml file can't be loaded
+   */
+  @FXML
+  private void reload() throws IOException {
+    if (runButton.getText().equals("RUN")) {
+      Parent root =
+          FXMLLoader.load(getClass().getResource("/uk/ac/nottingham/fxml/Scenarios.fxml"));
+      Stage primaryStage = Main.getStage();
+      primaryStage.setScene(new Scene(root));
+    } else {
+      NotificationManager.show("First pause the simulation to reset");
+    }
   }
 
   /**
