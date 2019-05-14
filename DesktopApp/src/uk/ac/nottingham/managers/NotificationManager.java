@@ -40,11 +40,13 @@ public class NotificationManager {
     label.getStylesheets().add("/uk/ac/nottingham/css/Stylesheet.css");
     label.getStyleClass().add("popup");
     popup.getContent().add(label);
-    popup.setOnShown(
-        e -> {
-          popup.setX(stage.getX() + stage.getWidth() / 2 - popup.getWidth() / 2);
-          popup.setY(stage.getY() + stage.getHeight() / 2 - popup.getHeight() / 2);
-        });
+    if (stage.isFocused()) {
+      popup.setOnShown(
+          e -> {
+            popup.setX(stage.getX() + stage.getWidth() / 2 - popup.getWidth() / 2);
+            popup.setY(stage.getY() + stage.getHeight() / 2 - popup.getHeight() / 2);
+          });
+    }
     return popup;
   }
 

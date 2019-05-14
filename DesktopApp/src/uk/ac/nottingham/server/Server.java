@@ -50,7 +50,10 @@ public class Server extends Thread {
         final NetworkInterface nic = interfaces.nextElement();
 
         // skip all loopback interfaces
-        if (nic.isLoopback()) {
+        if (nic.isLoopback()
+            || nic.isVirtual()
+            || !nic.isUp()
+            || nic.getDisplayName().contains("Virtual")) {
           continue;
         }
 
@@ -64,6 +67,7 @@ public class Server extends Thread {
           connectionInformation.append(nic.getDisplayName()).append("\n");
           connectionInformation.append("\tName:    ").append(nic.getName()).append("\n");
           connectionInformation.append("\tAddress: ").append(inetAddress.getHostAddress());
+          connectionInformation.append("\n");
         }
       }
     } catch (IOException e) {
@@ -82,7 +86,7 @@ public class Server extends Thread {
     try {
       ServerSocket listenSocket = new ServerSocket(SERVER_PORT_NUMBER);
       System.out.println("server is running");
-      System.out.println("\nConnection information: " + getNetInfo() + "\n");
+      System.out.println("\n" + getNetInfo());
 
       while (true) {
         Socket clientSocket = listenSocket.accept();

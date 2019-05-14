@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Group 27 App</string>
+    <string name="app_name">H2GO</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -11,13 +11,11 @@
     <string name="supervisor_usermail">supervisor@group27.com</string>
     <string name="worker_username">Worker</string>
     <string name="worker_usermail">worker@group27.com</string>
-    <string name="demo_text">DEMO APP</string>
-    <string name="overview_fragment_textview">This page displays the OVERVIEW</string>
+    <string name="mainactivity_text">GROUP 27</string>
     <string name="uon_logo_description">University of Nottingham Logo</string>
     <string name="action_settings">Settings</string>
     <string name="pref_ip_key">ip_address</string>
     <string name="default_data">N\\A</string>
-    <string name="error_network">"ERROR: No network connection"</string>
     <string name="error_ip_address">"ERROR: IP Address not set"</string>
     <string name="error_server">
         "ERROR: Can't connect to server\n\nCheck IP address and server status"
