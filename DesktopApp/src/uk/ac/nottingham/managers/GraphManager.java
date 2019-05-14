@@ -36,8 +36,8 @@ public class GraphManager {
     NumberAxis newAxis = getNewNumberAxis(label);
     newAxis.setAutoRanging(false);
     newAxis.setLowerBound(0);
-    newAxis.setUpperBound(25);
-    newAxis.setTickUnit(5);
+    newAxis.setUpperBound(50);
+    newAxis.setTickUnit(10);
     return newAxis;
   }
 
